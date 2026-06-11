@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HijomaProzomin — Toshkentdagi sertifikatlangan hijoma markazi. Klassik, quruq va sildirma hijoma xizmatlari. Onlayn qabulga yozilish.">
+    <meta name="keywords" content="hijoma, hijoma markazi, cupping, toshkent, hijomaprozomin">
+    <title>HijomaProzomin — Hijoma Markazi | Toshkent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* ============================================================
+           DESIGN TOKENS
+           Primary:   Teal   #2A9E8E  (from logo circle/text)
+           Accent:    Maroon #8B2035  (from logo drop)
+           ============================================================ */
+        :root {
+            --teal:        #2A9E8E;
+            --teal-dark:   #1E7A6D;
+            --teal-deeper: #155C52;
+            --teal-light:  #E6F5F3;
+            --teal-soft:   #B8DDD9;
+            --maroon:      #8B2035;
+            --maroon-dark: #6B1828;
+            --maroon-lt:   #F5E8EB;
+            --gold:        #FFD166;
+            --white:       #FFFFFF;
+            --off:         #F6FAFA;
+            --text:        #1A2E2B;
+            --text-md:     #3D5654;
+            --text-lt:     #6B8080;
+            --border:      #D4E8E6;
+            --shadow-teal: rgba(42,158,142,.18);
+            --shadow-dark: rgba(26,46,43,.10);
+            --grad:  linear-gradient(135deg,#1E7A6D 0%,#2A9E8E 55%,#3BB5A4 100%);
+        }
+
+        /* ============ RESET ============ */
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        html{scroll-behavior:smooth;font-size:16px}
+        body{font-family:'Open Sans',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;line-height:1.65}
+        img{max-width:100%;display:block}
+        a{text-decoration:none;color:inherit}
+        ul{list-style:none}
+        button{cursor:pointer}
+
+        /* ============ TYPOGRAPHY ============ */
+        h1,h2,h3,h4,h5{font-family:'Nunito',sans-serif;line-height:1.2}
+        h1{font-size:clamp(2rem,5vw,3.6rem);font-weight:900}
+        h2{font-size:clamp(1.6rem,3.5vw,2.5rem);font-weight:800}
+        h3{font-size:clamp(1.1rem,2vw,1.5rem);font-weight:700}
+        p{color:var(--text-md)}
+
+        /* ============ LAYOUT ============ */
+        .container{max-width:1200px;margin:0 auto;padding:0 24px}
+        .pad{padding:96px 0}
+        .pad-sm{padding:64px 0}
+
+        /* ============ BUTTONS ============ */
+        .btn{
+            display:inline-flex;align-items:center;gap:9px;
+            padding:13px 30px;border-radius:50px;border:none;
+            font-family:'Nunito',sans-serif;font-weight:700;font-size:.95rem;
+            transition:all .28s ease;white-space:nowrap;cursor:pointer;
+        }
+        .btn-red{
+            background:var(--maroon);color:#fff;
+            box-shadow:0 6px 22px rgba(139,32,53,.35);
+        }
+        .btn-red:hover{background:var(--maroon-dark);transform:translateY(-2px);box-shadow:0 10px 30px rgba(139,32,53,.45)}
+        .btn-teal{
+            background:var(--teal);color:#fff;
+            box-shadow:0 6px 22px var(--shadow-teal);
+        }
+        .btn-teal:hover{background:var(--teal-dark);transform:translateY(-2px)}
+        .btn-ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.65)}
+        .btn-ghost:hover{background:rgba(255,255,255,.12);border-color:#fff}
+        .btn-white{background:#fff;color:var(--teal-dark);font-weight:700}
+        .btn-white:hover{background:var(--off);transform:translateY(-2px)}
+        .btn-block{width:100%;justify-content:center;padding:15px 30px;font-size:1rem}
+
+        /* ============ LABEL CHIP ============ */
+        .chip{
+            display:inline-block;
+            font-family:'Nunito',sans-serif;font-weight:700;font-size:.75rem;
+            letter-spacing:1.8px;text-transform:uppercase;
+            color:var(--teal);background:var(--teal-light);
+            padding:6px 16px;border-radius:20px;margin-bottom:14px;
+        }
+        .chip-white{color:rgba(255,255,255,.9);background:rgba(255,255,255,.18)}
+        .chip-red{color:var(--maroon);background:var(--maroon-lt)}
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
+        #hdr{
+            position:fixed;top:0;left:0;right:0;z-index:1000;
+            padding:18px 0;transition:all .38s ease;
+        }
+        #hdr.solid{
+            background:#fff;
+            box-shadow:0 2px 28px var(--shadow-dark);
+            padding:11px 0;
+        }
+        .hdr-in{display:flex;align-items:center;justify-content:space-between}
+
+        /* Logo */
+        .logo{display:flex;align-items:center;gap:12px}
+        .logo-ring{
+            width:48px;height:48px;border-radius:50%;border:2px solid rgba(255,255,255,.7);
+            display:flex;align-items:center;justify-content:center;
+            background:rgba(255,255,255,.12);backdrop-filter:blur(6px);
+            transition:all .3s;
+        }
+        #hdr.solid .logo-ring{border-color:var(--teal);background:var(--teal-light)}
+        .logo-name{font-family:'Nunito',sans-serif;font-weight:900;font-size:1.2rem;color:#fff;line-height:1.05}
+        .logo-sub{font-size:.6rem;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.75)}
+        #hdr.solid .logo-name{color:var(--teal-dark)}
+        #hdr.solid .logo-sub{color:var(--text-lt)}
+
+        /* Nav */
+        nav ul{display:flex;gap:30px}
+        nav ul li a{
+            font-family:'Nunito',sans-serif;font-weight:600;font-size:.92rem;
+            color:rgba(255,255,255,.88);transition:color .25s;
+        }
+        nav ul li a:hover{color:#fff}
+        #hdr.solid nav ul li a{color:var(--text-md)}
+        #hdr.solid nav ul li a:hover{color:var(--teal)}
+
+        .ham{display:none;flex-direction:column;gap:5px;padding:4px;background:none;border:none}
+        .ham span{width:24px;height:2px;background:#fff;display:block;transition:all .3s;border-radius:2px}
+        #hdr.solid .ham span{background:var(--text)}
+
+        /* ============================================================
+           MOBILE MENU
+           ============================================================ */
+        .m-menu{
+            display:none;position:fixed;inset:0;z-index:999;
+            background:var(--text);padding:80px 28px 40px;
+            flex-direction:column;gap:22px;
+        }
+        .m-menu.open{display:flex}
+        .m-close{
+            position:absolute;top:18px;right:22px;
+            width:42px;height:42px;border-radius:10px;
+            background:rgba(255,255,255,.1);border:none;
+            color:#fff;font-size:1.2rem;
+            display:flex;align-items:center;justify-content:center;
+        }
+        .m-menu a{
+            font-family:'Nunito',sans-serif;font-weight:800;font-size:1.45rem;
+            color:#fff;transition:color .25s;
+        }
+        .m-menu a:hover{color:var(--teal-soft)}
+
+        /* ============================================================
+           HERO
+           ============================================================ */
+        #hero{
+            min-height:100vh;background:var(--grad);
+            display:flex;align-items:center;
+            padding:110px 0 70px;position:relative;overflow:hidden;
+        }
+        /* ambient circles */
+        .h-ring{
+            position:absolute;border-radius:50%;
+            border:1px solid rgba(255,255,255,.1);
+            animation:breathe 7s ease-in-out infinite;
+        }
+        .h-ring-1{width:580px;height:580px;right:-160px;top:-160px}
+        .h-ring-2{width:400px;height:400px;right:-60px;top:-60px;animation-delay:-2.3s;border-color:rgba(255,255,255,.07)}
+        .h-ring-3{width:240px;height:240px;right:20px;top:20px;animation-delay:-4.6s;border-color:rgba(255,255,255,.05)}
+        @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+
+        .hero-grid{
+            display:grid;grid-template-columns:1fr 1fr;
+            gap:56px;align-items:center;position:relative;z-index:2;
+        }
+
+        /* left */
+        .h-badge{
+            display:inline-flex;align-items:center;gap:8px;
+            background:rgba(255,255,255,.15);backdrop-filter:blur(10px);
+            border:1px solid rgba(255,255,255,.3);
+            padding:7px 18px;border-radius:30px;margin-bottom:22px;
+            font-family:'Nunito',sans-serif;font-weight:700;font-size:.78rem;
+            color:#fff;letter-spacing:1px;text-transform:uppercase;
+        }
+        .h-badge i{color:var(--gold)}
+        .hero-grid h1{color:#fff;margin-bottom:18px}
+        .hero-grid h1 em{font-style:normal;color:var(--gold);display:block}
+        .hero-grid > div > p{color:rgba(255,255,255,.88);font-size:1.05rem;margin-bottom:34px;max-width:470px}
+        .h-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px}
+        .h-stats{display:flex;gap:32px}
+        .h-stat .num{font-family:'Nunito',sans-serif;font-weight:900;font-size:2.3rem;color:#fff;line-height:1}
+        .h-stat .lbl{font-size:.72rem;color:rgba(255,255,255,.72);text-transform:uppercase;letter-spacing:1px;margin-top:3px}
+        .h-divider{width:1px;background:rgba(255,255,255,.25)}
+
+        /* right — visual */
+        .h-visual{display:flex;justify-content:center;align-items:center}
+        .cup-wrap{position:relative;width:340px;height:340px}
+        .cup-orbit{
+            position:absolute;inset:0;border-radius:50%;
+            border:2px solid rgba(255,255,255,.2);
+            animation:orbit 18s linear infinite;
+        }
+        .cup-orbit::before{
+            content:'';position:absolute;width:14px;height:14px;
+            border-radius:50%;background:rgba(255,255,255,.6);
+            top:-7px;left:50%;transform:translateX(-50%);
+        }
+        @keyframes orbit{to{transform:rotate(360deg)}}
+        .cup-mid{position:absolute;inset:26px;border-radius:50%;border:1px solid rgba(255,255,255,.12)}
+        .cup-core{
+            position:absolute;inset:52px;border-radius:50%;
+            background:rgba(255,255,255,.13);backdrop-filter:blur(10px);
+            border:1px solid rgba(255,255,255,.28);
+            display:flex;align-items:center;justify-content:center;
+        }
+
+        /* floating info cards */
+        .fc{
+            position:absolute;background:#fff;border-radius:14px;
+            padding:13px 17px;box-shadow:0 8px 30px rgba(0,0,0,.16);
+            display:flex;align-items:center;gap:12px;
+            animation:float 3.4s ease-in-out infinite;
+        }
+        .fc:nth-child(3){animation-delay:-1.7s}
+        .fc1{bottom:16px;left:-24px}
+        .fc2{top:24px;right:-28px}
+        .fc-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+        .fc1 .fc-icon{background:var(--teal-light);color:var(--teal)}
+        .fc2 .fc-icon{background:var(--maroon-lt);color:var(--maroon)}
+        .fc-t strong{display:block;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;color:var(--text)}
+        .fc-t span{font-size:.7rem;color:var(--text-lt);text-transform:uppercase;letter-spacing:.8px}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+        /* ============================================================
+           TRUST BAR
+           ============================================================ */
+        .trust{background:var(--off);border-bottom:1px solid var(--border);padding:16px 0}
+        .trust-inner{display:flex;align-items:center;justify-content:center;gap:36px;flex-wrap:wrap}
+        .trust-item{
+            display:flex;align-items:center;gap:9px;
+            font-family:'Nunito',sans-serif;font-weight:600;font-size:.84rem;color:var(--text-md);
+        }
+        .trust-item i{color:var(--teal);font-size:.95rem}
+
+        /* ============================================================
+           SECTION HEAD
+           ============================================================ */
+        .s-head{text-align:center;max-width:600px;margin:0 auto 58px}
+        .s-head h2{color:var(--text);margin-bottom:14px}
+        .s-head p{font-size:1.02rem}
+
+        /* ============================================================
+           SERVICES
+           ============================================================ */
+        .srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+        .srv-card{
+            border:1.5px solid var(--border);border-radius:20px;
+            padding:34px 26px;transition:all .3s ease;
+            position:relative;overflow:hidden;background:#fff;
+        }
+        .srv-card::after{
+            content:'';position:absolute;top:0;left:0;right:0;height:4px;
+            background:var(--teal);transform:scaleX(0);transition:transform .3s ease;
+        }
+        .srv-card:hover{border-color:var(--teal-soft);box-shadow:0 14px 44px var(--shadow-teal);transform:translateY(-6px)}
+        .srv-card:hover::after{transform:scaleX(1)}
+        .srv-card.hot{background:var(--grad);border-color:transparent}
+        .srv-card.hot h3,.srv-card.hot p{color:#fff}
+        .srv-card.hot .s-ico{background:rgba(255,255,255,.22);color:#fff}
+        .srv-card.hot::after{display:none}
+        .srv-card.hot .srv-tag{background:rgba(255,255,255,.22);color:#fff}
+        .s-ico{
+            width:62px;height:62px;border-radius:15px;
+            background:var(--teal-light);color:var(--teal);
+            display:flex;align-items:center;justify-content:center;
+            font-size:1.55rem;margin-bottom:22px;
+        }
+        .srv-card h3{margin-bottom:10px;font-size:1.2rem}
+        .srv-card p{font-size:.9rem;margin-bottom:18px}
+        .srv-tag{
+            display:inline-flex;align-items:center;gap:6px;
+            font-family:'Nunito',sans-serif;font-weight:700;font-size:.76rem;
+            color:var(--teal);background:var(--teal-light);
+            padding:5px 13px;border-radius:20px;
+        }
+
+        /* ============================================================
+           ABOUT
+           ============================================================ */
+        #about{background:var(--off)}
+        .ab-grid{display:grid;grid-template-columns:1fr 1fr;gap:68px;align-items:center}
+        .ab-visual{position:relative}
+        .ab-img{
+            border-radius:22px;height:470px;background:var(--grad);
+            display:flex;align-items:center;justify-content:center;
+            box-shadow:0 20px 56px var(--shadow-dark);overflow:hidden;
+        }
+        .ab-badge{
+            position:absolute;bottom:-22px;right:-22px;
+            background:var(--maroon);color:#fff;
+            border-radius:18px;padding:22px 26px;
+            box-shadow:0 12px 38px rgba(139,32,53,.35);
+        }
+        .ab-badge .big{font-family:'Nunito',sans-serif;font-weight:900;font-size:2.8rem;line-height:1}
+        .ab-badge p{color:rgba(255,255,255,.82);font-size:.82rem;margin:4px 0 0}
+        .ab-txt h2{color:var(--text);margin-bottom:18px}
+        .ab-txt>p{margin-bottom:30px}
+        .ab-list{display:flex;flex-direction:column;gap:14px;margin-bottom:34px}
+        .ab-item{display:flex;gap:15px;align-items:flex-start}
+        .ab-ico{
+            width:42px;height:42px;flex-shrink:0;border-radius:11px;
+            background:var(--teal-light);color:var(--teal);
+            display:flex;align-items:center;justify-content:center;font-size:1rem;
+        }
+        .ab-item strong{display:block;font-family:'Nunito',sans-serif;font-weight:700;color:var(--text);margin-bottom:3px}
+        .ab-item p{font-size:.88rem;margin:0}
+
+        /* ============================================================
+           PROCESS
+           ============================================================ */
+        .proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;position:relative}
+        .proc-grid::before{
+            content:'';position:absolute;top:40px;
+            left:calc(12.5% + 20px);right:calc(12.5% + 20px);
+            height:2px;background:var(--teal-soft);z-index:0;
+        }
+        .proc-step{text-align:center;position:relative;z-index:1}
+        .p-num{
+            width:80px;height:80px;border-radius:50%;margin:0 auto 18px;
+            background:var(--teal);color:#fff;
+            display:flex;align-items:center;justify-content:center;
+            font-family:'Nunito',sans-serif;font-weight:900;font-size:1.6rem;
+            box-shadow:0 8px 24px var(--shadow-teal);transition:transform .3s;
+        }
+        .proc-step:hover .p-num{transform:scale(1.1)}
+        .proc-step h4{font-family:'Nunito',sans-serif;font-weight:700;color:var(--text);margin-bottom:8px}
+        .proc-step p{font-size:.87rem}
+
+        /* ============================================================
+           PRICING
+           ============================================================ */
+        #pricing{background:var(--off)}
+        .pr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;align-items:start}
+        .pr-card{
+            background:#fff;border-radius:22px;padding:38px 30px;
+            border:1.5px solid var(--border);transition:all .3s;position:relative;overflow:hidden;
+        }
+        .pr-card:not(.pop):hover{border-color:var(--teal-soft);box-shadow:0 14px 40px var(--shadow-teal);transform:translateY(-4px)}
+        .pr-card.pop{
+            background:var(--grad);border-color:transparent;
+            transform:scale(1.04);box-shadow:0 20px 58px var(--shadow-teal);
+        }
+        .pop-lbl{
+            position:absolute;top:18px;right:18px;
+            background:var(--maroon);color:#fff;
+            font-family:'Nunito',sans-serif;font-weight:700;font-size:.72rem;
+            padding:4px 13px;border-radius:20px;letter-spacing:.8px;text-transform:uppercase;
+        }
+        .pr-name{font-family:'Nunito',sans-serif;font-weight:800;font-size:1.1rem;color:var(--text);margin-bottom:6px}
+        .pr-card.pop .pr-name{color:#fff}
+        .pr-sub{font-size:.87rem;color:var(--text-lt);margin-bottom:26px}
+        .pr-card.pop .pr-sub{color:rgba(255,255,255,.75)}
+        .pr-price{margin-bottom:26px;padding-bottom:26px;border-bottom:1px solid var(--border)}
+        .pr-card.pop .pr-price{border-color:rgba(255,255,255,.22)}
+        .pr-amt{font-family:'Nunito',sans-serif;font-weight:900;font-size:2.5rem;line-height:1;color:var(--teal-dark)}
+        .pr-card.pop .pr-amt{color:#fff}
+        .pr-unit{font-size:.9rem;font-weight:500;color:var(--text-lt)}
+        .pr-card.pop .pr-unit{color:rgba(255,255,255,.7)}
+        .pr-feats{display:flex;flex-direction:column;gap:11px;margin-bottom:28px}
+        .pr-feats li{display:flex;gap:9px;align-items:center;font-size:.89rem;color:var(--text-md)}
+        .pr-card.pop .pr-feats li{color:rgba(255,255,255,.9)}
+        .pr-feats li i{color:var(--teal);font-size:.8rem;flex-shrink:0}
+        .pr-card.pop .pr-feats li i{color:var(--gold)}
+
+        /* ============================================================
+           APPOINTMENT
+           ============================================================ */
+        #appt{background:var(--grad);position:relative;overflow:hidden}
+        #appt::before{
+            content:'';position:absolute;inset:0;
+            background-image:radial-gradient(circle at 15% 85%,rgba(255,255,255,.04) 0%,transparent 50%),
+                             radial-gradient(circle at 85% 15%,rgba(255,255,255,.05) 0%,transparent 50%);
+        }
+        .appt-grid{display:grid;grid-template-columns:1fr 1.35fr;gap:68px;align-items:start;position:relative;z-index:2}
+        .appt-l h2{color:#fff;margin-bottom:18px}
+        .appt-l>p{color:rgba(255,255,255,.86);margin-bottom:34px}
+        .appt-feats{display:flex;flex-direction:column;gap:18px}
+        .apf{display:flex;gap:15px;align-items:center}
+        .apf-ico{
+            width:46px;height:46px;flex-shrink:0;border-radius:12px;
+            background:rgba(255,255,255,.15);backdrop-filter:blur(8px);
+            color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.15rem;
+        }
+        .apf strong{display:block;color:#fff;font-family:'Nunito',sans-serif;font-weight:700;margin-bottom:2px}
+        .apf span{color:rgba(255,255,255,.72);font-size:.86rem}
+
+        /* Form card */
+        .form-card{background:#fff;border-radius:22px;padding:38px;box-shadow:0 20px 58px rgba(0,0,0,.2)}
+        .form-card h3{font-family:'Nunito',sans-serif;font-weight:800;color:var(--text);margin-bottom:26px;font-size:1.35rem}
+        .f-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+        .f-grp{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+        .f-grp label{font-family:'Nunito',sans-serif;font-weight:600;font-size:.83rem;color:var(--text-md)}
+        .f-grp input,.f-grp select,.f-grp textarea{
+            padding:11px 15px;border:1.5px solid var(--border);border-radius:11px;
+            font-family:'Open Sans',sans-serif;font-size:.9rem;color:var(--text);
+            background:var(--off);outline:none;appearance:none;
+            transition:all .28s;
+        }
+        .f-grp input:focus,.f-grp select:focus,.f-grp textarea:focus{
+            border-color:var(--teal);background:#fff;
+            box-shadow:0 0 0 4px rgba(42,158,142,.12);
+        }
+        .f-grp textarea{resize:vertical;min-height:94px}
+        .ok-msg{
+            display:none;align-items:center;gap:10px;
+            background:#d4edda;color:#155724;padding:14px 18px;
+            border-radius:11px;margin-bottom:14px;border:1px solid #c3e6cb;
+            font-family:'Nunito',sans-serif;font-weight:700;font-size:.92rem;
+        }
+        .ok-msg.show{display:flex}
+
+        /* ============================================================
+           TESTIMONIALS
+           ============================================================ */
+        .tst-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+        .tst-card{
+            background:var(--off);border-radius:20px;padding:30px;
+            border:1.5px solid var(--border);transition:all .3s;
+        }
+        .tst-card:hover{box-shadow:0 12px 38px var(--shadow-teal);border-color:var(--teal-soft);transform:translateY(-4px)}
+        .stars{display:flex;gap:4px;color:#FFB800;font-size:.88rem;margin-bottom:15px}
+        .tst-txt{font-size:.91rem;color:var(--text-md);margin-bottom:22px;font-style:italic;line-height:1.75}
+        .tst-author{display:flex;align-items:center;gap:13px}
+        .av{
+            width:46px;height:46px;border-radius:50%;flex-shrink:0;
+            background:var(--teal);color:#fff;
+            display:flex;align-items:center;justify-content:center;
+            font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;
+        }
+        .tst-nm strong{display:block;font-family:'Nunito',sans-serif;font-weight:700;color:var(--text);font-size:.93rem}
+        .tst-nm span{font-size:.75rem;color:var(--text-lt)}
+
+        /* ============================================================
+           CONTACT
+           ============================================================ */
+        #contact{background:var(--off)}
+        .ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:58px;align-items:start}
+        .ct-info h2{margin-bottom:14px}
+        .ct-info>p{margin-bottom:32px}
+        .ct-items{display:flex;flex-direction:column;gap:16px}
+        .ct-item{
+            display:flex;gap:16px;align-items:center;
+            padding:18px 20px;background:#fff;border-radius:14px;
+            border:1px solid var(--border);transition:all .3s;
+        }
+        .ct-item:hover{box-shadow:0 8px 22px var(--shadow-teal);border-color:var(--teal-soft)}
+        .ct-ico{
+            width:48px;height:48px;flex-shrink:0;border-radius:12px;
+            background:var(--teal-light);color:var(--teal);
+            display:flex;align-items:center;justify-content:center;font-size:1.15rem;
+        }
+        .ct-item strong{display:block;font-family:'Nunito',sans-serif;font-weight:700;color:var(--text);margin-bottom:2px}
+        .ct-item span{font-size:.86rem;color:var(--text-lt)}
+        .map-ph{
+            border-radius:18px;height:300px;background:var(--teal-light);
+            border:1.5px solid var(--teal-soft);
+            display:flex;align-items:center;justify-content:center;
+            flex-direction:column;gap:10px;color:var(--teal);
+        }
+        .map-ph i{font-size:2.5rem}
+        .map-ph p{font-family:'Nunito',sans-serif;font-weight:700;color:var(--teal-dark)}
+        .map-ph small{font-size:.78rem;color:var(--teal);opacity:.7}
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        footer{background:var(--text);color:#fff;padding:58px 0 0}
+        .ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:46px;padding-bottom:46px}
+        .ft-brand p{color:rgba(255,255,255,.55);font-size:.88rem;margin:18px 0 24px;max-width:270px}
+        .socials{display:flex;gap:10px}
+        .soc{
+            width:38px;height:38px;border-radius:9px;
+            background:rgba(255,255,255,.08);
+            display:flex;align-items:center;justify-content:center;
+            color:rgba(255,255,255,.65);font-size:.95rem;transition:all .3s;
+        }
+        .soc:hover{background:var(--teal);color:#fff}
+        .ft-col h5{font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;color:#fff;margin-bottom:18px}
+        .ft-col ul{display:flex;flex-direction:column;gap:10px}
+        .ft-col ul li a{color:rgba(255,255,255,.55);font-size:.88rem;transition:color .25s}
+        .ft-col ul li a:hover{color:var(--teal-soft)}
+        .ft-btm{
+            border-top:1px solid rgba(255,255,255,.08);
+            padding:22px 0;text-align:center;
+            color:rgba(255,255,255,.38);font-size:.82rem;
+        }
+        .ft-btm span{color:var(--teal-soft)}
+
+        /* ============================================================
+           SCROLL-TO-TOP
+           ============================================================ */
+        #totop{
+            position:fixed;bottom:28px;right:28px;
+            width:46px;height:46px;border-radius:50%;
+            background:var(--teal);color:#fff;border:none;
+            display:flex;align-items:center;justify-content:center;
+            font-size:.95rem;cursor:pointer;
+            box-shadow:0 4px 18px var(--shadow-teal);
+            opacity:0;visibility:hidden;transition:all .3s;z-index:990;
+        }
+        #totop.on{opacity:1;visibility:visible}
+        #totop:hover{background:var(--teal-dark);transform:translateY(-3px)}
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media(max-width:1024px){
+            .hero-grid,.ab-grid,.ct-grid{grid-template-columns:1fr}
+            .h-visual{display:none}
+            .srv-grid,.pr-grid{grid-template-columns:repeat(2,1fr)}
+            .proc-grid{grid-template-columns:repeat(2,1fr)}
+            .proc-grid::before{display:none}
+            .ft-grid{grid-template-columns:1fr 1fr;gap:30px}
+            .appt-grid{grid-template-columns:1fr}
+            .ab-badge{right:16px;bottom:16px}
+        }
+        @media(max-width:768px){
+            .pad{padding:62px 0}
+            nav,.hdr-cta-wrap{display:none}
+            .ham{display:flex}
+            .srv-grid,.pr-grid,.tst-grid{grid-template-columns:1fr}
+            .pr-card.pop{transform:scale(1)}
+            .f-row{grid-template-columns:1fr}
+            .trust-inner{gap:16px}
+            .h-stats{gap:18px}
+            .ft-grid{grid-template-columns:1fr}
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== HEADER ==================== -->
+<header id="hdr">
+    <div class="container">
+        <div class="hdr-in">
+            <a href="#" class="logo">
+                <div class="logo-ring">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                        <circle cx="14" cy="14" r="12" stroke="#2A9E8E" stroke-width="1.5" fill="none"/>
+                        <rect x="8" y="6" width="12" height="3" rx="1.5" fill="#2A9E8E"/>
+                        <path d="M9 9 L8.5 19 Q8.5 21 11 21 H17 Q19.5 21 19.5 19 L19 9Z"
+                              fill="#2A9E8E" fill-opacity=".3" stroke="#2A9E8E" stroke-width="1.2"/>
+                        <path d="M14 11 C14 11 11.5 14.2 11.5 16 C11.5 17.38 12.62 18.5 14 18.5 C15.38 18.5 16.5 17.38 16.5 16 C16.5 14.2 14 11 14 11Z"
+                              fill="#8B2035"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="logo-name">hijomaprozomin</div>
+                    <div class="logo-sub">Hijoma Markazi</div>
+                </div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#services">Xizmatlar</a></li>
+                    <li><a href="#about">Biz haqimizda</a></li>
+                    <li><a href="#pricing">Narxlar</a></li>
+                    <li><a href="#testimonials">Fikrlar</a></li>
+                    <li><a href="#contact">Aloqa</a></li>
+                </ul>
+            </nav>
+            <div class="hdr-cta-wrap">
+                <a href="#appt" class="btn btn-red">
+                    <i class="fas fa-calendar-plus"></i> Qabulga yozilish
+                </a>
+            </div>
+            <button class="ham" id="hamBtn"><span></span><span></span><span></span></button>
+        </div>
+    </div>
+</header>
+
+<!-- ==================== MOBILE MENU ==================== -->
+<div class="m-menu" id="mMenu">
+    <button class="m-close" id="mClose"><i class="fas fa-times"></i></button>
+    <a href="#services">Xizmatlar</a>
+    <a href="#about">Biz haqimizda</a>
+    <a href="#pricing">Narxlar</a>
+    <a href="#testimonials">Fikrlar</a>
+    <a href="#contact">Aloqa</a>
+    <a href="#appt" class="btn btn-red" style="width:fit-content;margin-top:8px">
+        <i class="fas fa-calendar-plus"></i> Qabulga yozilish
+    </a>
+</div>
+
+<!-- ==================== HERO ==================== -->
+<section id="hero">
+    <div class="h-ring h-ring-1"></div>
+    <div class="h-ring h-ring-2"></div>
+    <div class="h-ring h-ring-3"></div>
+    <div class="container">
+        <div class="hero-grid">
+            <!-- Left: copy -->
+            <div>
+                <div class="h-badge"><i class="fas fa-star"></i> Toshkentdagi #1 Hijoma Markazi</div>
+                <h1>Sog'liq — eng katta <em>boylik</em></h1>
+                <p>HijomaProzomin — zamonaviy steril muhitda an'anaviy hijoma terapiyasi orqali sog'ligingizni tiklash va mustahkamlash markazi.</p>
+                <div class="h-btns">
+                    <a href="#appt" class="btn btn-red"><i class="fas fa-calendar-plus"></i> Qabul belgilash</a>
+                    <a href="#services" class="btn btn-ghost"><i class="fas fa-list"></i> Xizmatlar</a>
+                </div>
+                <div class="h-stats">
+                    <div class="h-stat">
+                        <div class="num" data-to="1200">0</div>
+                        <div class="lbl">Bemorlar</div>
+                    </div>
+                    <div class="h-divider"></div>
+                    <div class="h-stat">
+                        <div class="num" data-to="8">0</div>
+                        <div class="lbl">Yil tajriba</div>
+                    </div>
+                    <div class="h-divider"></div>
+                    <div class="h-stat">
+                        <div class="num" data-to="98" data-sfx="%">0</div>
+                        <div class="lbl">Mamnunlik</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Right: decorative visual -->
+            <div class="h-visual">
+                <div class="cup-wrap">
+                    <div class="cup-orbit"></div>
+                    <div class="cup-mid"></div>
+                    <div class="cup-core">
+                        <svg width="155" height="155" viewBox="0 0 155 155" fill="none">
+                            <rect x="32" y="34" width="91" height="13" rx="6.5" fill="rgba(255,255,255,.88)"/>
+                            <path d="M37 47 L34 117 Q34 122 40 122 H115 Q121 122 119 117 L116 47Z"
+                                  fill="rgba(255,255,255,.2)" stroke="rgba(255,255,255,.75)" stroke-width="2.5"/>
+                            <path d="M37 58 Q20 58 20 72 Q20 86 37 86" stroke="rgba(255,255,255,.7)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                            <path d="M118 58 Q135 58 135 72 Q135 86 118 86" stroke="rgba(255,255,255,.7)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                            <path d="M77.5 55 C77.5 55 58 78 58 93 C58 103.77 67.23 112.5 78 112.5 C88.77 112.5 98 103.77 98 93 C98 78 77.5 55 77.5 55Z"
+                                  fill="#FFD166" opacity=".92"/>
+                            <ellipse cx="70" cy="84" rx="5" ry="9" fill="rgba(255,255,255,.38)" transform="rotate(-15 70 84)"/>
+                        </svg>
+                    </div>
+                    <div class="fc fc1">
+                        <div class="fc-icon"><i class="fas fa-shield-alt"></i></div>
+                        <div class="fc-t"><strong>100% Steril</strong><span>Xavfsiz muhit</span></div>
+                    </div>
+                    <div class="fc fc2">
+                        <div class="fc-icon"><i class="fas fa-award"></i></div>
+                        <div class="fc-t"><strong>Sertifikat</strong><span>Mutaxassislar</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== TRUST BAR ==================== -->
+<div class="trust">
+    <div class="container">
+        <div class="trust-inner">
+            <div class="trust-item"><i class="fas fa-check-circle"></i> Sertifikatlangan shifokorlar</div>
+            <div class="trust-item"><i class="fas fa-syringe"></i> Bir martalik steril asboblar</div>
+            <div class="trust-item"><i class="fas fa-clock"></i> Dush–Shan: 09:00–20:00</div>
+            <div class="trust-item"><i class="fas fa-phone-alt"></i> +998 90 000 00 00</div>
+            <div class="trust-item"><i class="fas fa-map-marker-alt"></i> Toshkent, O'zbekiston</div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== SERVICES ==================== -->
+<section id="services" class="pad">
+    <div class="container">
+        <div class="s-head">
+            <span class="chip">Bizning xizmatlar</span>
+            <h2>Sog'ligingiz uchun <br>eng samarali usullar</h2>
+            <p>Har bir mijoz uchun individual yondashuv va zamonaviy hijoma terapiyasi metodlari</p>
+        </div>
+        <div class="srv-grid">
+            <div class="srv-card">
+                <div class="s-ico"><i class="fas fa-tint"></i></div>
+                <h3>Klassik Hijoma</h3>
+                <p>An'anaviy qon oladigan hijoma usuli. Qon tozalash, immunitetni mustahkamlash va umumiy sog'liqni yaxshilash uchun eng samarali metod.</p>
+                <span class="srv-tag"><i class="fas fa-clock"></i> 45–60 daqiqa</span>
+            </div>
+            <div class="srv-card hot">
+                <div class="s-ico"><i class="fas fa-wind"></i></div>
+                <h3>Quruq Hijoma</h3>
+                <p>Qon olmay, vakuum orqali amalga oshiriladigan hijoma. Muskul tarangligini bartaraf etish va qon aylanishini yaxshilash uchun.</p>
+                <span class="srv-tag"><i class="fas fa-star"></i> Eng mashhur</span>
+            </div>
+            <div class="srv-card">
+                <div class="s-ico"><i class="fas fa-hands"></i></div>
+                <h3>Sildirma Hijoma</h3>
+                <p>Harakatlanuvchi vakuum bankalar yordamida massaj. Terini tonuslash, sellyulitga qarshi va qon aylanishini faollashtirish.</p>
+                <span class="srv-tag"><i class="fas fa-clock"></i> 30–45 daqiqa</span>
+            </div>
+            <div class="srv-card">
+                <div class="s-ico"><i class="fas fa-leaf"></i></div>
+                <h3>O't-o'simlik Hijoma</h3>
+                <p>Shifobaxsh o'tlar bilan boyitilgan moy qo'llash orqali amalga oshiriladigan maxsus hijoma kursi.</p>
+                <span class="srv-tag"><i class="fas fa-clock"></i> 60–90 daqiqa</span>
+            </div>
+            <div class="srv-card">
+                <div class="s-ico"><i class="fas fa-user-md"></i></div>
+                <h3>Tibbiy Konsultatsiya</h3>
+                <p>Hijoma oldingi to'liq tekshiruv va maslahat. Individual davolash kursi tuzish va sog'liq monitoringi.</p>
+                <span class="srv-tag"><i class="fas fa-clock"></i> 20–30 daqiqa</span>
+            </div>
+            <div class="srv-card">
+                <div class="s-ico"><i class="fas fa-spa"></i></div>
+                <h3>Kurs Davolash</h3>
+                <p>5 yoki 10 seansldan iborat to'liq kompleks kurs. Surunkali kasalliklar va umumiy sog'liqni tiklash uchun.</p>
+                <span class="srv-tag"><i class="fas fa-percent"></i> 20% chegirma</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== ABOUT ==================== -->
+<section id="about" class="pad">
+    <div class="container">
+        <div class="ab-grid">
+            <div class="ab-visual">
+                <div class="ab-img">
+                    <svg width="190" height="200" viewBox="0 0 190 200" fill="none">
+                        <circle cx="95" cy="100" r="80" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.2)" stroke-width="2"/>
+                        <circle cx="95" cy="100" r="52" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+                        <rect x="80" y="60" width="30" height="80" rx="8" fill="rgba(255,255,255,.28)"/>
+                        <rect x="55" y="85" width="80" height="30" rx="8" fill="rgba(255,255,255,.28)"/>
+                        <path d="M95 85 C95 85 82 98 82 106 C82 113.18 87.82 119 95 119 C102.18 119 108 113.18 108 106 C108 98 95 85 95 85Z"
+                              fill="#FFD166" opacity=".9"/>
+                    </svg>
+                </div>
+                <div class="ab-badge">
+                    <div class="big">8+</div>
+                    <p>Yillik tajriba</p>
+                </div>
+            </div>
+            <div class="ab-txt">
+                <span class="chip">Biz haqimizda</span>
+                <h2>Sog'lik — bizning asosiy ustuvorligimiz</h2>
+                <p>HijomaProzomin markazi 2016-yildan beri faoliyat yuritib, minglab bemorlarga sifatli hijoma xizmatini ko'rsatib kelmoqda. Zamonaviy tibbiyot standartlari asosida an'anaviy hijoma usullarini qo'llaymiz.</p>
+                <div class="ab-list">
+                    <div class="ab-item">
+                        <div class="ab-ico"><i class="fas fa-certificate"></i></div>
+                        <div>
+                            <strong>Sertifikatlangan mutaxassislar</strong>
+                            <p>Barcha shifokorlarimiz xalqaro sertifikatga ega va muntazam malaka oshirib boradi.</p>
+                        </div>
+                    </div>
+                    <div class="ab-item">
+                        <div class="ab-ico"><i class="fas fa-shield-virus"></i></div>
+                        <div>
+                            <strong>Mutlaq sterillik</strong>
+                            <p>Faqat bir martalik asboblar ishlatiladi. Har seans oldidan to'liq dezinfeksiya amalga oshiriladi.</p>
+                        </div>
+                    </div>
+                    <div class="ab-item">
+                        <div class="ab-ico"><i class="fas fa-user-check"></i></div>
+                        <div>
+                            <strong>Individual yondashuv</strong>
+                            <p>Har bir bemor uchun alohida tekshiruv o'tkazilib, individual davolash rejasi tuziladi.</p>
+                        </div>
+                    </div>
+                    <div class="ab-item">
+                        <div class="ab-ico"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <strong>Qulay joylashuv</strong>
+                            <p>Toshkentning markazida joylashgan, barcha transport turlari bilan qulay kirish imkoni.</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="#appt" class="btn btn-teal"><i class="fas fa-calendar-check"></i> Qabulga yozilish</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== PROCESS ==================== -->
+<section id="process" class="pad" style="background:#fff">
+    <div class="container">
+        <div class="s-head">
+            <span class="chip">Jarayon</span>
+            <h2>Qabul qanday o'tadi?</h2>
+            <p>Siz uchun qulay va xavfsiz muhitda 4 qadamda hijoma seansi</p>
+        </div>
+        <div class="proc-grid">
+            <div class="proc-step">
+                <div class="p-num">1</div>
+                <h4>Murojaat</h4>
+                <p>Telefon yoki sayt orqali qabulga yoziling. Siz uchun qulay vaqt belgilanadi.</p>
+            </div>
+            <div class="proc-step">
+                <div class="p-num">2</div>
+                <h4>Konsultatsiya</h4>
+                <p>Mutaxassis sog'lig'ingizni tekshirib, qaysi hijoma turi mos kelishini aniqlaydi.</p>
+            </div>
+            <div class="proc-step">
+                <div class="p-num">3</div>
+                <h4>Seans</h4>
+                <p>Steril muhitda qulay va xavfsiz hijoma seansi malakali shifokor tomonidan o'tkaziladi.</p>
+            </div>
+            <div class="proc-step">
+                <div class="p-num">4</div>
+                <h4>Nazorat</h4>
+                <p>Seans so'ng holatni kuzatib boramiz va keyingi seansni belgilaymiz.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== PRICING ==================== -->
+<section id="pricing" class="pad">
+    <div class="container">
+        <div class="s-head">
+            <span class="chip">Narxlar</span>
+            <h2>Shaffof va adolatli narxlar</h2>
+            <p>Yashirin to'lovlar yo'q. Sifatli xizmat hamyonbop narxlarda</p>
+        </div>
+        <div class="pr-grid">
+            <!-- Basic -->
+            <div class="pr-card">
+                <div class="pr-name">Bir seansli</div>
+                <div class="pr-sub">Birinchi marta sinab ko'rish uchun</div>
+                <div class="pr-price">
+                    <div class="pr-amt">80 000<span class="pr-unit"> so'm</span></div>
+                </div>
+                <ul class="pr-feats">
+                    <li><i class="fas fa-check"></i> 1 ta hijoma seansi</li>
+                    <li><i class="fas fa-check"></i> Dastlabki konsultatsiya</li>
+                    <li><i class="fas fa-check"></i> Steril asboblar</li>
+                    <li><i class="fas fa-check"></i> Seans keyingi maslahat</li>
+                </ul>
+                <a href="#appt" class="btn btn-teal btn-block">Qabul belgilash</a>
+            </div>
+            <!-- Popular -->
+            <div class="pr-card pop">
+                <div class="pop-lbl"><i class="fas fa-fire"></i> Mashhur</div>
+                <div class="pr-name">5 Seanslik kurs</div>
+                <div class="pr-sub">Eng ko'p tanlangan paket</div>
+                <div class="pr-price">
+                    <div class="pr-amt">350 000<span class="pr-unit"> so'm</span></div>
+                </div>
+                <ul class="pr-feats">
+                    <li><i class="fas fa-check"></i> 5 ta hijoma seansi</li>
+                    <li><i class="fas fa-check"></i> 12.5% tejash</li>
+                    <li><i class="fas fa-check"></i> Individual davolash rejasi</li>
+                    <li><i class="fas fa-check"></i> Har seans maslahat</li>
+                    <li><i class="fas fa-check"></i> Holatni kuzatib borish</li>
+                </ul>
+                <a href="#appt" class="btn btn-white btn-block">Hozir yozilish</a>
+            </div>
+            <!-- Pro -->
+            <div class="pr-card">
+                <div class="pr-name">10 Seanslik kurs</div>
+                <div class="pr-sub">Surunkali kasalliklar uchun</div>
+                <div class="pr-price">
+                    <div class="pr-amt">600 000<span class="pr-unit"> so'm</span></div>
+                </div>
+                <ul class="pr-feats">
+                    <li><i class="fas fa-check"></i> 10 ta hijoma seansi</li>
+                    <li><i class="fas fa-check"></i> 25% tejash</li>
+                    <li><i class="fas fa-check"></i> To'liq tibbiy monitoring</li>
+                    <li><i class="fas fa-check"></i> VIP xizmat</li>
+                    <li><i class="fas fa-check"></i> Uy tashriflari imkoni</li>
+                </ul>
+                <a href="#appt" class="btn btn-teal btn-block">Qabul belgilash</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== APPOINTMENT ==================== -->
+<section id="appt" class="pad">
+    <div class="container">
+        <div class="appt-grid">
+            <!-- Left info -->
+            <div class="appt-l">
+                <span class="chip chip-white">Online Qabul</span>
+                <h2>Bugun qabulga <br>yoziling</h2>
+                <p>Vaqtingizni tejang — formani to'ldiring, operatorimiz 15 daqiqa ichida siz bilan bog'lanadi.</p>
+                <div class="appt-feats">
+                    <div class="apf">
+                        <div class="apf-ico"><i class="fas fa-bolt"></i></div>
+                        <div>
+                            <strong>Tezkor tasdiqlash</strong>
+                            <span>15 daqiqa ichida javob beramiz</span>
+                        </div>
+                    </div>
+                    <div class="apf">
+                        <div class="apf-ico"><i class="fas fa-calendar-alt"></i></div>
+                        <div>
+                            <strong>Qulay jadval</strong>
+                            <span>Dush–Shan, soat 09:00–20:00</span>
+                        </div>
+                    </div>
+                    <div class="apf">
+                        <div class="apf-ico"><i class="fab fa-telegram"></i></div>
+                        <div>
+                            <strong>Telegram orqali</strong>
+                            <span>@hijomaprozomin_bot</span>
+                        </div>
+                    </div>
+                    <div class="apf">
+                        <div class="apf-ico"><i class="fas fa-phone-alt"></i></div>
+                        <div>
+                            <strong>Telefon</strong>
+                            <span>+998 90 000 00 00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Right form -->
+            <div class="form-card">
+                <h3><i class="fas fa-calendar-plus" style="color:var(--teal);margin-right:10px"></i>Qabul formasi</h3>
+                <div class="ok-msg" id="okMsg">
+                    <i class="fas fa-check-circle"></i>
+                    Muvaffaqiyatli yuborildi! Tez orada siz bilan bog'lanamiz.
+                </div>
+                <!-- Replace YOUR_FORM_ID with your Formspree ID after registering at formspree.io -->
+                <form id="apptForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    <div class="f-row">
+                        <div class="f-grp">
+                            <label>Ism Familiya *</label>
+                            <input type="text" name="name" placeholder="Ismoilov Jasur" required>
+                        </div>
+                        <div class="f-grp">
+                            <label>Telefon *</label>
+                            <input type="tel" name="phone" placeholder="+998 90 123 45 67" required>
+                        </div>
+                    </div>
+                    <div class="f-grp">
+                        <label>Xizmat turi *</label>
+                        <select name="service" required>
+                            <option value="">— Tanlang —</option>
+                            <option>Klassik Hijoma</option>
+                            <option>Quruq Hijoma</option>
+                            <option>Sildirma Hijoma</option>
+                            <option>O't-o'simlik Hijoma</option>
+                            <option>5 Seanslik kurs</option>
+                            <option>10 Seanslik kurs</option>
+                            <option>Tibbiy Konsultatsiya</option>
+                        </select>
+                    </div>
+                    <div class="f-row">
+                        <div class="f-grp">
+                            <label>Sana *</label>
+                            <input type="date" name="date" id="apptDate" required>
+                        </div>
+                        <div class="f-grp">
+                            <label>Soat *</label>
+                            <select name="time" required>
+                                <option value="">— Tanlang —</option>
+                                <option>09:00</option><option>10:00</option>
+                                <option>11:00</option><option>12:00</option>
+                                <option>14:00</option><option>15:00</option>
+                                <option>16:00</option><option>17:00</option>
+                                <option>18:00</option><option>19:00</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="f-grp">
+                        <label>Muammo / Savol (ixtiyoriy)</label>
+                        <textarea name="message" placeholder="Sog'lig'ingiz haqida qisqacha ma'lumot..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-red btn-block">
+                        <i class="fas fa-paper-plane"></i> Yuborish
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== TESTIMONIALS ==================== -->
+<section id="testimonials" class="pad" style="background:#fff">
+    <div class="container">
+        <div class="s-head">
+            <span class="chip">Mijozlar fikri</span>
+            <h2>Ular bizni tanladi va mamnun</h2>
+            <p>Har oy 100+ mijoz HijomaProzomin markaziga murojaat qiladi</p>
+        </div>
+        <div class="tst-grid">
+            <div class="tst-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="tst-txt">«3 yildan beri bel og'rig'imdan aziyat chekardim. 5 seans hijomadan so'ng og'riqlarim deyarli yo'qoldi. Mutaxassislar juda professional va mehribon.»</p>
+                <div class="tst-author">
+                    <div class="av">MN</div>
+                    <div class="tst-nm"><strong>Muazzam Nazarova</strong><span>Toshkent, 2025</span></div>
+                </div>
+            </div>
+            <div class="tst-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="tst-txt">«Bosim muammom bor edi. Hijoma kursi o'tgach bosimim normallashdi. Juda katta rahmat HijomaProzomin jamoasiga! Albatta davom etaman.»</p>
+                <div class="tst-author">
+                    <div class="av" style="background:var(--maroon)">JR</div>
+                    <div class="tst-nm"><strong>Jasur Rahimov</strong><span>Samarqand, 2025</span></div>
+                </div>
+            </div>
+            <div class="tst-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="tst-txt">«Immunitetim past edi, tez-tez kasal bo'lardim. Seanslardan so'ng energiyam oshdi. Markazning yondashuvi, sterilligi va xizmati beshta yulduzga loyiq!»</p>
+                <div class="tst-author">
+                    <div class="av" style="background:#F4A261">ZH</div>
+                    <div class="tst-nm"><strong>Zulfiya Holiqova</strong><span>Toshkent, 2026</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== CONTACT ==================== -->
+<section id="contact" class="pad">
+    <div class="container">
+        <div class="ct-grid">
+            <div class="ct-info">
+                <span class="chip">Aloqa</span>
+                <h2>Biz bilan bog'laning</h2>
+                <p>Savollaringiz bormi? Quyidagi aloqa vositalari orqali murojaat qiling.</p>
+                <div class="ct-items">
+                    <div class="ct-item">
+                        <div class="ct-ico"><i class="fas fa-phone-alt"></i></div>
+                        <div><strong>Telefon</strong><span>+998 90 000 00 00</span></div>
+                    </div>
+                    <div class="ct-item">
+                        <div class="ct-ico"><i class="fab fa-telegram"></i></div>
+                        <div><strong>Telegram</strong><span>@hijomaprozomin</span></div>
+                    </div>
+                    <div class="ct-item">
+                        <div class="ct-ico"><i class="fab fa-instagram"></i></div>
+                        <div><strong>Instagram</strong><span>@hijomaprozomin</span></div>
+                    </div>
+                    <div class="ct-item">
+                        <div class="ct-ico"><i class="fas fa-map-marker-alt"></i></div>
+                        <div><strong>Manzil</strong><span>Toshkent shahri, O'zbekiston</span></div>
+                    </div>
+                    <div class="ct-item">
+                        <div class="ct-ico"><i class="fas fa-clock"></i></div>
+                        <div><strong>Ish vaqti</strong><span>Dushanba – Shanba: 09:00 – 20:00</span></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Map placeholder — replace with real Google Maps embed -->
+            <div>
+                <div class="map-ph">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>Xarita bu yerga joylashtiriladi</p>
+                    <small>Google Maps embed kodi kiritiladi</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+    <div class="container">
+        <div class="ft-grid">
+            <div class="ft-brand">
+                <div class="logo" style="margin-bottom:0">
+                    <div class="logo-ring" style="border-color:var(--teal-soft);background:rgba(42,158,142,.15)">
+                        <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+                            <rect x="8" y="6" width="12" height="3" rx="1.5" fill="#2A9E8E"/>
+                            <path d="M9 9 L8.5 19 Q8.5 21 11 21 H17 Q19.5 21 19.5 19 L19 9Z" fill="#2A9E8E" fill-opacity=".4" stroke="#2A9E8E" stroke-width="1.2"/>
+                            <path d="M14 11 C14 11 11.5 14.2 11.5 16 C11.5 17.38 12.62 18.5 14 18.5 C15.38 18.5 16.5 17.38 16.5 16 C16.5 14.2 14 11 14 11Z" fill="#8B2035"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="logo-name">hijomaprozomin</div>
+                        <div class="logo-sub" style="color:rgba(255,255,255,.45)">Hijoma Markazi</div>
+                    </div>
+                </div>
+                <p>Toshkentdagi eng ishonchli hijoma markazi. 2016-yildan beri sog'ligingiz uchun xizmat qilamiz.</p>
+                <div class="socials">
+                    <a href="#" class="soc"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="soc"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="soc"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="soc"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="ft-col">
+                <h5>Xizmatlar</h5>
+                <ul>
+                    <li><a href="#services">Klassik Hijoma</a></li>
+                    <li><a href="#services">Quruq Hijoma</a></li>
+                    <li><a href="#services">Sildirma Hijoma</a></li>
+                    <li><a href="#services">Kurs Davolash</a></li>
+                    <li><a href="#services">Konsultatsiya</a></li>
+                </ul>
+            </div>
+            <div class="ft-col">
+                <h5>Sahifalar</h5>
+                <ul>
+                    <li><a href="#about">Biz haqimizda</a></li>
+                    <li><a href="#process">Jarayon</a></li>
+                    <li><a href="#pricing">Narxlar</a></li>
+                    <li><a href="#testimonials">Fikrlar</a></li>
+                    <li><a href="#contact">Aloqa</a></li>
+                </ul>
+            </div>
+            <div class="ft-col">
+                <h5>Aloqa</h5>
+                <ul>
+                    <li><a href="tel:+998900000000"><i class="fas fa-phone" style="color:var(--teal-soft);margin-right:8px"></i>+998 90 000 00 00</a></li>
+                    <li><a href="https://t.me/hijomaprozomin"><i class="fab fa-telegram" style="color:var(--teal-soft);margin-right:8px"></i>@hijomaprozomin</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt" style="color:var(--teal-soft);margin-right:8px"></i>Toshkent, O'z</a></li>
+                    <li><a href="#"><i class="fas fa-clock" style="color:var(--teal-soft);margin-right:8px"></i>09:00 – 20:00</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="ft-btm">
+        <div class="container">
+            © 2026 <span>HijomaProzomin</span>. Barcha huquqlar himoyalangan.
+        </div>
+    </div>
+</footer>
+
+<button id="totop"><i class="fas fa-arrow-up"></i></button>
+
+<script>
+/* ---- Header on scroll ---- */
+const hdr = document.getElementById('hdr');
+const totop = document.getElementById('totop');
+window.addEventListener('scroll', () => {
+    hdr.classList.toggle('solid', scrollY > 60);
+    totop.classList.toggle('on', scrollY > 400);
+});
+totop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+
+/* ---- Mobile menu ---- */
+const hamBtn = document.getElementById('hamBtn');
+const mMenu  = document.getElementById('mMenu');
+const mClose = document.getElementById('mClose');
+hamBtn.addEventListener('click', () => mMenu.classList.add('open'));
+mClose.addEventListener('click', () => mMenu.classList.remove('open'));
+mMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mMenu.classList.remove('open')));
+
+/* ---- Smooth scroll ---- */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'}); }
+    });
+});
+
+/* ---- Count-up ---- */
+const cnums = document.querySelectorAll('.num[data-to]');
+const cobs  = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        const el  = en.target;
+        const to  = parseInt(el.dataset.to);
+        const sfx = el.dataset.sfx || '+';
+        const dur = 1800;
+        const step= to / (dur / 16);
+        let cur = 0;
+        const t = setInterval(() => {
+            cur += step;
+            if (cur >= to) { cur = to; clearInterval(t); }
+            el.textContent = Math.floor(cur).toLocaleString() + sfx;
+        }, 16);
+        cobs.unobserve(el);
+    });
+}, {threshold:.5});
+cnums.forEach(n => cobs.observe(n));
+
+/* ---- Scroll reveal ---- */
+const robs = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+        if (en.isIntersecting) {
+            en.target.style.opacity = '1';
+            en.target.style.transform = 'translateY(0)';
+        }
+    });
+}, {threshold:.1});
+document.querySelectorAll('.srv-card,.tst-card,.pr-card,.proc-step,.ab-item,.ct-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(28px)';
+    el.style.transition = 'opacity .55s ease, transform .55s ease';
+    robs.observe(el);
+});
+
+/* ---- Date min ---- */
+const di = document.getElementById('apptDate');
+if (di) di.min = new Date().toISOString().split('T')[0];
+
+/* ---- Form submit (Formspree) ---- */
+const apptForm = document.getElementById('apptForm');
+apptForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = apptForm.querySelector('button[type=submit]');
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Yuborilmoqda...';
+    btn.disabled = true;
+    try {
+        const res = await fetch(apptForm.action, {
+            method: 'POST',
+            body: new FormData(apptForm),
+            headers: { Accept: 'application/json' }
+        });
+        if (res.ok) {
+            document.getElementById('okMsg').classList.add('show');
+            apptForm.reset();
+        } else {
+            alert('Xatolik yuz berdi. Iltimos telefon orqali bog\'laning: +998 90 000 00 00');
+        }
+    } catch {
+        alert('Internet aloqasini tekshiring yoki telefon orqali bog\'laning.');
+    }
+    btn.innerHTML = orig;
+    btn.disabled = false;
+});
+</script>
+</body>
+</html>
