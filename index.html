@@ -99,7 +99,9 @@
             padding:18px 0;transition:all .38s ease;
         }
         #hdr.solid{
-            background:#fff;
+            background:rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             box-shadow:0 2px 28px var(--shadow-dark);
             padding:11px 0;
         }
@@ -256,30 +258,47 @@
         .s-head p{font-size:1.02rem}
 
         /* ============================================================
-           SERVICES
+           SERVICES & 3D CONFIGS
            ============================================================ */
         .srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+        
+        /* 3D Настройки для карточек */
+        .srv-card, .pr-card {
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+        }
+        
         .srv-card{
             border:1.5px solid var(--border);border-radius:20px;
-            padding:34px 26px;transition:all .3s ease;
+            padding:34px 26px;transition:border-color .3s, box-shadow .3s;
             position:relative;overflow:hidden;background:#fff;
         }
         .srv-card::after{
             content:'';position:absolute;top:0;left:0;right:0;height:4px;
             background:var(--teal);transform:scaleX(0);transition:transform .3s ease;
         }
-        .srv-card:hover{border-color:var(--teal-soft);box-shadow:0 14px 44px var(--shadow-teal);transform:translateY(-6px)}
+        .srv-card:hover{border-color:var(--teal-soft);box-shadow:0 14px 44px var(--shadow-teal)}
         .srv-card:hover::after{transform:scaleX(1)}
         .srv-card.hot{background:var(--grad);border-color:transparent}
         .srv-card.hot h3,.srv-card.hot p{color:#fff}
         .srv-card.hot .s-ico{background:rgba(255,255,255,.22);color:#fff}
         .srv-card.hot::after{display:none}
         .srv-card.hot .srv-tag{background:rgba(255,255,255,.22);color:#fff}
+        
+        /* Выталкиваем иконки вперед в 3D пространстве */
+        .s-ico, .pr-amt, .pop-lbl {
+            transform: translateZ(30px);
+        }
+        .srv-card h3, .pr-name {
+            transform: translateZ(20px);
+        }
+
         .s-ico{
             width:62px;height:62px;border-radius:15px;
             background:var(--teal-light);color:var(--teal);
             display:flex;align-items:center;justify-content:center;
             font-size:1.55rem;margin-bottom:22px;
+            transition: transform 0.3s;
         }
         .srv-card h3{margin-bottom:10px;font-size:1.2rem}
         .srv-card p{font-size:.9rem;margin-bottom:18px}
@@ -291,21 +310,39 @@
         }
 
         /* ============================================================
-           ABOUT
+           ABOUT & 3D ILLUSTRATION
            ============================================================ */
         #about{background:var(--off)}
         .ab-grid{display:grid;grid-template-columns:1fr 1fr;gap:68px;align-items:center}
         .ab-visual{position:relative}
+        
+        /* Новая интерактивная 3D абстракция вместо пустого фона */
         .ab-img{
             border-radius:22px;height:470px;background:var(--grad);
             display:flex;align-items:center;justify-content:center;
             box-shadow:0 20px 56px var(--shadow-dark);overflow:hidden;
+            position: relative;
+            perspective: 1000px;
         }
+        .ab-3d-sphere {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #ffd166, #8b2035);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            animation: floatingSphere 6s ease-in-out infinite;
+        }
+        @keyframes floatingSphere {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
         .ab-badge{
             position:absolute;bottom:-22px;right:-22px;
             background:var(--maroon);color:#fff;
             border-radius:18px;padding:22px 26px;
             box-shadow:0 12px 38px rgba(139,32,53,.35);
+            z-index: 5;
         }
         .ab-badge .big{font-family:'Nunito',sans-serif;font-weight:900;font-size:2.8rem;line-height:1}
         .ab-badge p{color:rgba(255,255,255,.82);font-size:.82rem;margin:4px 0 0}
@@ -349,12 +386,12 @@
         .pr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;align-items:start}
         .pr-card{
             background:#fff;border-radius:22px;padding:38px 30px;
-            border:1.5px solid var(--border);transition:all .3s;position:relative;overflow:hidden;
+            border:1.5px solid var(--border);transition:border-color .3s, box-shadow .3s;position:relative;overflow:hidden;
         }
-        .pr-card:not(.pop):hover{border-color:var(--teal-soft);box-shadow:0 14px 40px var(--shadow-teal);transform:translateY(-4px)}
+        .pr-card:not(.pop):hover{border-color:var(--teal-soft);box-shadow:0 14px 40px var(--shadow-teal)}
         .pr-card.pop{
             background:var(--grad);border-color:transparent;
-            transform:scale(1.04);box-shadow:0 20px 58px var(--shadow-teal);
+            box-shadow:0 20px 58px var(--shadow-teal);
         }
         .pop-lbl{
             position:absolute;top:18px;right:18px;
@@ -385,7 +422,7 @@
         #appt::before{
             content:'';position:absolute;inset:0;
             background-image:radial-gradient(circle at 15% 85%,rgba(255,255,255,.04) 0%,transparent 50%),
-                             radial-gradient(circle at 85% 15%,rgba(255,255,255,.05) 0%,transparent 50%);
+                                 radial-gradient(circle at 85% 15%,rgba(255,255,255,.05) 0%,transparent 50%);
         }
         .appt-grid{display:grid;grid-template-columns:1fr 1.35fr;gap:68px;align-items:start;position:relative;z-index:2}
         .appt-l h2{color:#fff;margin-bottom:18px}
@@ -401,7 +438,7 @@
         .apf span{color:rgba(255,255,255,.72);font-size:.86rem}
 
         /* Form card */
-        .form-card{background:#fff;border-radius:22px;padding:38px;box-shadow:0 20px 58px rgba(0,0,0,.2)}
+        .form-card{background:rgba(255, 255, 255, 0.9);backdrop-filter: blur(10px);border-radius:22px;padding:38px;box-shadow:0 20px 58px rgba(0,0,0,.2)}
         .form-card h3{font-family:'Nunito',sans-serif;font-weight:800;color:var(--text);margin-bottom:26px;font-size:1.35rem}
         .f-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
         .f-grp{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
@@ -529,13 +566,13 @@
             .ft-grid{grid-template-columns:1fr 1fr;gap:30px}
             .appt-grid{grid-template-columns:1fr}
             .ab-badge{right:16px;bottom:16px}
+            .pr-card.pop{transform:scale(1)}
         }
         @media(max-width:768px){
             .pad{padding:62px 0}
             nav,.hdr-cta-wrap{display:none}
             .ham{display:flex}
             .srv-grid,.pr-grid,.tst-grid{grid-template-columns:1fr}
-            .pr-card.pop{transform:scale(1)}
             .f-row{grid-template-columns:1fr}
             .trust-inner{gap:16px}
             .h-stats{gap:18px}
@@ -604,13 +641,12 @@
     <div class="h-ring h-ring-3"></div>
     <div class="container">
         <div class="hero-grid">
-            <!-- Left: copy -->
             <div>
                 <div class="h-badge"><i class="fas fa-star"></i> Zomindagi #1 Hijoma Markazi</div>
                 <h1>Sog'liq — eng katta <em>boylik</em></h1>
                 <p>HijomaProzomin — zamonaviy steril muhitda an'anaviy hijoma terapiyasi orqali sog'ligingizni tiklash va mustahkamlash markazi.</p>
                 <div class="h-btns">
-                    <a href="#appt" class="btn btn-red"><i class="fas fa-calendar-plus"></i> Qabuga yozilish</a>
+                    <a href="#appt" class="btn btn-red"><i class="fas fa-calendar-plus"></i> Qabulga yozilish</a>
                     <a href="#services" class="btn btn-ghost"><i class="fas fa-list"></i> Xizmatlar</a>
                 </div>
                 <div class="h-stats">
@@ -623,37 +659,27 @@
                         <div class="num" data-to="7">0</div>
                         <div class="lbl">Yil tajriba</div>
                     </div>
-                    <div class="h-divider"></div>
-                    <div class="h-stat">
-                        <div class="num" data-to="98" data-sfx="%">0</div>
-                        <div class="lbl">Mamnunlik</div>
-                    </div>
                 </div>
             </div>
-            <!-- Right: decorative visual -->
-            <div class="h-visual">
+
+            <!-- Правая интерактивная часть главного экрана -->
+            <div class="h-visual" data-tilt data-tilt-max="15" data-tilt-speed="400">
                 <div class="cup-wrap">
                     <div class="cup-orbit"></div>
                     <div class="cup-mid"></div>
                     <div class="cup-core">
-                        <svg width="155" height="155" viewBox="0 0 155 155" fill="none">
-                            <rect x="32" y="34" width="91" height="13" rx="6.5" fill="rgba(255,255,255,.88)"/>
-                            <path d="M37 47 L34 117 Q34 122 40 122 H115 Q121 122 119 117 L116 47Z"
-                                  fill="rgba(255,255,255,.2)" stroke="rgba(255,255,255,.75)" stroke-width="2.5"/>
-                            <path d="M37 58 Q20 58 20 72 Q20 86 37 86" stroke="rgba(255,255,255,.7)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                            <path d="M118 58 Q135 58 135 72 Q135 86 118 86" stroke="rgba(255,255,255,.7)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                            <path d="M77.5 55 C77.5 55 58 78 58 93 C58 103.77 67.23 112.5 78 112.5 C88.77 112.5 98 103.77 98 93 C98 78 77.5 55 77.5 55Z"
-                                  fill="#FFD166" opacity=".92"/>
-                            <ellipse cx="70" cy="84" rx="5" ry="9" fill="rgba(255,255,255,.38)" transform="rotate(-15 70 84)"/>
+                        <svg width="120" height="120" viewBox="0 0 28 28" fill="none">
+                            <circle cx="14" cy="14" r="12" stroke="#fff" stroke-width="1" fill="none"/>
+                            <path d="M14 6 C14 6 10 11 10 14 C10 16.2 11.8 18 14 18 C16.2 18 18 16.2 18 14 C18 11 14 6 14 6Z" fill="#FFD166"/>
                         </svg>
                     </div>
-                    <div class="fc fc1">
-                        <div class="fc-icon"><i class="fas fa-shield-alt"></i></div>
-                        <div class="fc-t"><strong>100% Steril</strong><span>Xavfsiz muhit</span></div>
+                    <div class="fc fc1" data-tilt-perspective="500">
+                        <div class="fc-icon"><i class="fas fa-heartbeat"></i></div>
+                        <div class="fc-t"><strong>Steril</strong><span>100% xavfsiz</span></div>
                     </div>
                     <div class="fc fc2">
-                        <div class="fc-icon"><i class="fas fa-award"></i></div>
-                        <div class="fc-t"><strong>Sertifikat</strong><span>Mutaxassislar</span></div>
+                        <div class="fc-icon"><i class="fas fa-user-md"></i></div>
+                        <div class="fc-t"><strong>Mutaxassis</strong><span>Sertifikatlangan</span></div>
                     </div>
                 </div>
             </div>
@@ -665,11 +691,9 @@
 <div class="trust">
     <div class="container">
         <div class="trust-inner">
-            <div class="trust-item"><i class="fas fa-check-circle"></i> Sertifikatlangan shifokorlar</div>
-            <div class="trust-item"><i class="fas fa-syringe"></i> Bir martalik steril asboblar</div>
-            <div class="trust-item"><i class="fas fa-clock"></i> Dush–Shan: 09:00–20:00</div>
-            <div class="trust-item"><i class="fas fa-phone-alt"></i> +998 95 350 11 12</div>
-            <div class="trust-item"><i class="fas fa-map-marker-alt"></i> Jizzax,Zomin</div>
+            <div class="trust-item"><i class="fas fa-shield-alt"></i> 100% xavfsiz va steril uskunalar</div>
+            <div class="trust-item"><i class="fas fa-star"></i> Tajribali shifokorlar nazorati</div>
+            <div class="trust-item"><i class="fas fa-clock"></i> Qulay vaqtga onlayn yozilish</div>
         </div>
     </div>
 </div>
@@ -678,46 +702,29 @@
 <section id="services" class="pad">
     <div class="container">
         <div class="s-head">
-            <span class="chip">Bizning xizmatlar</span>
-            <h2>Sog'ligingiz uchun <br>eng samarali usullar</h2>
-            <p>Har bir mijoz uchun individual yondashuv va zamonaviy hijoma terapiyasi metodlari</p>
+            <span class="chip">Xizmatlarimiz</span>
+            <h2>Sizga qanday yordam bera olamiz?</h2>
+            <p>Sog'ligingiz holatiga qarab, biz eng samarali va xavfsiz terapiya turini tanlaymiz.</p>
         </div>
         <div class="srv-grid">
-            <div class="srv-card">
+            <!-- Добавлены дата-атрибуты для активации 3D при наведении -->
+            <div class="srv-card" data-tilt data-tilt-max="20" data-tilt-glare data-tilt-max-glare="0.2">
                 <div class="s-ico"><i class="fas fa-tint"></i></div>
                 <h3>Klassik Hijoma</h3>
-                <p>An'anaviy qon oladigan hijoma usuli. Qon tozalash, immunitetni mustahkamlash va umumiy sog'liqni yaxshilash uchun eng samarali metod.</p>
-                <span class="srv-tag"><i class="fas fa-clock"></i> 45–60 daqiqa</span>
+                <p>An'anaviy usulda qon oldirish orqali tana a'zolarini tozalash va qon aylanishini yaxshilash.</p>
+                <span class="srv-tag"><i class="fas fa-check"></i> Eng ommabop</span>
             </div>
-            <div class="srv-card hot">
-                <div class="s-ico"><i class="fas fa-wind"></i></div>
-                <h3>Quruq Hijoma</h3>
-                <p>Qon olmay, vakuum orqali amalga oshiriladigan hijoma. Muskul tarangligini bartaraf etish va qon aylanishini yaxshilash uchun.</p>
-                <span class="srv-tag"><i class="fas fa-star"></i> Eng mashhur</span>
+            <div class="srv-card hot" data-tilt data-tilt-max="15" data-tilt-scale="1.03">
+                <div class="s-ico"><i class="fas fa-burn"></i></div>
+                <h3>Quruq va Sildirma</h3>
+                <p>Qon chiqarmasdan, bankalar yordamida mushaklarni bo'shashtirish va og'riqlarni qoldirish.</p>
+                <span class="srv-tag"><i class="fas fa-fire"></i> Og'riqsiz</span>
             </div>
-            <div class="srv-card">
-                <div class="s-ico"><i class="fas fa-hands"></i></div>
-                <h3>Sildirma Hijoma</h3>
-                <p>Harakatlanuvchi vakuum bankalar yordamida massaj. Terini tonuslash, sellyulitga qarshi va qon aylanishini faollashtirish.</p>
-                <span class="srv-tag"><i class="fas fa-clock"></i> 30–45 daqiqa</span>
-            </div>
-            <div class="srv-card">
-                <div class="s-ico"><i class="fas fa-leaf"></i></div>
-                <h3>O't-o'simlik Hijoma</h3>
-                <p>Shifobaxsh o'tlar bilan boyitilgan moy qo'llash orqali amalga oshiriladigan maxsus hijoma kursi.</p>
-                <span class="srv-tag"><i class="fas fa-clock"></i> 60–90 daqiqa</span>
-            </div>
-            <div class="srv-card">
-                <div class="s-ico"><i class="fas fa-user-md"></i></div>
-                <h3>Tibbiy Konsultatsiya</h3>
-                <p>Hijomadan oldingi to'liq tekshiruv va maslahat. Individual davolash kursi tuzish va sog'liq monitoringi.</p>
-                <span class="srv-tag"><i class="fas fa-clock"></i> 20–30 daqiqa</span>
-            </div>
-            <div class="srv-card">
+            <div class="srv-card" data-tilt data-tilt-max="20" data-tilt-glare data-tilt-max-glare="0.2">
                 <div class="s-ico"><i class="fas fa-spa"></i></div>
-                <h3>Kurs Davolash</h3>
-                <p>3 yoki 5 seansldan iborat to'liq kompleks kurs. Surunkali kasalliklar va umumiy sog'liqni tiklash uchun.</p>
-                <span class="srv-tag"><i class="fas fa-percent"></i> 20% chegirma</span>
+                <h3>Premium Massaj</h3>
+                <p>Tana charchoqlarini chiqarish, asab tizimini tinchlantirish va umumiy tonusni ko'tarish.</p>
+                <span class="srv-tag"><i class="fas fa-leaf"></i> Relaks</span>
             </div>
         </div>
     </div>
@@ -727,90 +734,70 @@
 <section id="about" class="pad">
     <div class="container">
         <div class="ab-grid">
-            <div class="ab-visual">
+            <div class="ab-visual" data-tilt data-tilt-max="10">
                 <div class="ab-img">
-                    <svg width="190" height="200" viewBox="0 0 190 200" fill="none">
-                        <circle cx="95" cy="100" r="80" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.2)" stroke-width="2"/>
-                        <circle cx="95" cy="100" r="52" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
-                        <rect x="80" y="60" width="30" height="80" rx="8" fill="rgba(255,255,255,.28)"/>
-                        <rect x="55" y="85" width="80" height="30" rx="8" fill="rgba(255,255,255,.28)"/>
-                        <path d="M95 85 C95 85 82 98 82 106 C82 113.18 87.82 119 95 119 C102.18 119 108 113.18 108 106 C108 98 95 85 95 85Z"
-                              fill="#FFD166" opacity=".9"/>
-                    </svg>
+                    <!-- Добавлена живая 3D фигура -->
+                    <div class="ab-3d-sphere"></div>
                 </div>
                 <div class="ab-badge">
                     <div class="big">7+</div>
-                    <p>Yillik tajriba</p>
+                    <p>Yillik Tibbiy<br>Tajriba</p>
                 </div>
             </div>
             <div class="ab-txt">
-                <span class="chip">Biz haqimizda</span>
-                <h2>Sog'lik — bizning asosiy ustuvorligimiz</h2>
-                <p>HijomaProzomin markazi 2019-yildan beri faoliyat yuritib, minglab bemorlarga sifatli hijoma xizmatini ko'rsatib kelmoqda. Zamonaviy tibbiyot standartlari asosida an'anaviy hijoma usullarini qo'llaymiz.</p>
+                <span class="chip chip-red">Markaz haqida</span>
+                <h2>Sog'ligingizni tajribali mutaxassislarga ishoning</h2>
+                <p>Bizning markazimiz ko'p yillik tajribaga ega sertifikatlangan mutaxassislardan tashkil topgan. Biz har bir mijozga individual yondashamiz ва eng yuqori steril standartlarga amal qilamiz.</p>
                 <div class="ab-list">
                     <div class="ab-item">
-                        <div class="ab-ico"><i class="fas fa-certificate"></i></div>
+                        <div class="ab-ico"><i class="fas fa-user-shield"></i></div>
                         <div>
-                            <strong>Sertifikatlangan mutaxassislar</strong>
-                            <p>Barcha shifokorlarimiz xalqaro sertifikatga ega va muntazam malaka oshirib boradi.</p>
+                            <strong>Sertifikatlangan Shifokorlar</strong>
+                            <p>Barcha muolajalar maxsus tibbiy ma'lumotga ega mutaxassislar tomonidan o'tkaziladi.</p>
                         </div>
                     </div>
                     <div class="ab-item">
-                        <div class="ab-ico"><i class="fas fa-shield-virus"></i></div>
+                        <div class="ab-ico"><i class="fas fa-pump-medical"></i></div>
                         <div>
-                            <strong>Mutlaq sterillik</strong>
-                            <p>Faqat bir martalik asboblar ishlatiladi. Har seans oldidan to'liq dezinfeksiya amalga oshiriladi.</p>
-                        </div>
-                    </div>
-                    <div class="ab-item">
-                        <div class="ab-ico"><i class="fas fa-user-check"></i></div>
-                        <div>
-                            <strong>Individual yondashuv</strong>
-                            <p>Har bir bemor uchun alohida tekshiruv o'tkazilib, individual davolash rejasi tuziladi.</p>
-                        </div>
-                    </div>
-                    <div class="ab-item">
-                        <div class="ab-ico"><i class="fas fa-map-marker-alt"></i></div>
-                        <div>
-                            <strong>Qulay joylashuv</strong>
-                            <p>Zominning markazida joylashgan, barcha transport turlari bilan qulay kirish imkoni.</p>
+                            <strong>100% Sterillik Kafolati</strong>
+                            <p>Ishlatiladigan barcha asbob-uskunalar bir martalik bo'lib, sizning ko'z oldingizda ochiladi.</p>
                         </div>
                     </div>
                 </div>
-                <a href="#appt" class="btn btn-teal"><i class="fas fa-calendar-check"></i> Qabulga yozilish</a>
+                <a href="#appt" class="btn btn-teal">Batafsil ma'lumot <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </div>
 </section>
 
 <!-- ==================== PROCESS ==================== -->
-<section id="process" class="pad" style="background:#fff">
+<section id="process" class="pad">
     <div class="container">
         <div class="s-head">
-            <span class="chip">Jarayon</span>
-            <h2>Qabul qanday o'tadi?</h2>
-            <p>Siz uchun qulay va xavfsiz muhitda 4 qadamda hijoma seansi</p>
+            <span class="chip">Bosqichlar</span>
+            <h2>Sog'lom hayotga 4 qadam</h2>
+            <p>Bizning markazimizda muolaja jarayoni qanday tashkil etiladi?</p>
         </div>
         <div class="proc-grid">
             <div class="proc-step">
                 <div class="p-num">1</div>
-                <h4>Murojaat</h4>
-                <p>Telefon yoki sayt orqali qabulga yoziling. Siz uchun qulay vaqt belgilanadi.</p>
+                <h4>Yozilish</h4>
+                <p>Sayt yoki bot orqali o'zingizga qulay vaqtni tanlang.</p>
             </div>
             <div class="proc-step">
                 <div class="p-num">2</div>
                 <h4>Konsultatsiya</h4>
-                <p>Mutaxassis sog'lig'ingizni tekshirib, qaysi hijoma turi mos kelishini aniqlaydi.</p>
+                <p>Shifokorimiz sizni tekshiradi va tavsiyalar beradi.</p>
             </div>
             <div class="proc-step">
                 <div class="p-num">3</div>
-                <h4>Seans</h4>
-                <p>Steril muhitda qulay va xavfsiz hijoma seansi malakali shifokor tomonidan o'tkaziladi.</p>
+                <h4>Muolaja</h4>
+                <p>Mutloqo steril va og'riqsiz sharoitda hijoma qilinadi.</p>
             </div>
             <div class="proc-step">
                 <div class="p-num">4</div>
-                <h4>Nazorat</h4>
-                <p>Seans so'ng holatni kuzatib boramiz va keyingi seansni belgilaymiz.</p>
+                <h4>Natija</h4>
+                <p>Tanadagi yengillik va quvvatni birinchi kundan his qiling.</p>
             </div>
         </div>
     </div>
@@ -821,57 +808,53 @@
     <div class="container">
         <div class="s-head">
             <span class="chip">Narxlar</span>
-            <h2>Shaffof va adolatli narxlar</h2>
-            <p>Yashirin to'lovlar yo'q. Sifatli xizmat hamyonbop narxlarda</p>
+            <h2>Hamyonbop va shaffof narxlar</h2>
+            <p>Hech qanday yashirin to'lovlarsiz, sifatli xizmat ko'rsatish tarafdorimiz.</p>
         </div>
         <div class="pr-grid">
-            <!-- Basic -->
-            <div class="pr-card">
-                <div class="pr-name">Bir seansli</div>
-                <div class="pr-sub">Birinchi marta sinab ko'rish uchun</div>
+            <div class="pr-card" data-tilt data-tilt-max="15">
+                <div class="pr-name">Standart Hijoma</div>
+                <div class="pr-sub">Umumiy sog'lomlashtirish uchun</div>
                 <div class="pr-price">
-                    <div class="pr-amt">300000<span class="pr-unit"> so'm</span></div>
+                    <span class="pr-amt">150k</span>
+                    <span class="pr-unit"> / seans</span>
                 </div>
                 <ul class="pr-feats">
-                    <li><i class="fas fa-check"></i> 1 ta hijoma seansi</li>
-                    <li><i class="fas fa-check"></i> Dastlabki konsultatsiya</li>
-                    <li><i class="fas fa-check"></i> Steril asboblar</li>
-                    <li><i class="fas fa-check"></i> Seans keyingi maslahat</li>
+                    <li><i class="fas fa-check-circle"></i> Konsultatsiya</li>
+                    <li><i class="fas fa-check-circle"></i> 10 tagacha banka</li>
+                    <li><i class="fas fa-check-circle"></i> Bir martalik uskunalar</li>
                 </ul>
-                <a href="#appt" class="btn btn-teal btn-block">Qabul belgilash</a>
+                <a href="#appt" class="btn btn-teal btn-block">Yozilish</a>
             </div>
-            <!-- Popular -->
-            <div class="pr-card pop">
-                <div class="pop-lbl"><i class="fas fa-fire"></i> Mashhur</div>
-                <div class="pr-name">3 Seanslik kurs</div>
-                <div class="pr-sub">Eng ko'p tanlangan paket</div>
+            <div class="pr-card pop" data-tilt data-tilt-max="10" data-tilt-scale="1.02">
+                <span class="pop-lbl">Tavsiya etiladi</span>
+                <div class="pr-name">Premium Kompleks</div>
+                <div class="pr-sub">To'liq tana integratsiyasi</div>
                 <div class="pr-price">
-                    <div class="pr-amt">799000<span class="pr-unit"> so'm</span></div>
+                    <span class="pr-amt">300k</span>
+                    <span class="pr-unit" style="color: rgba(255,255,255,.7)"> / seans</span>
                 </div>
                 <ul class="pr-feats">
-                    <li><i class="fas fa-check"></i> 3 ta hijoma seansi</li>
-                    <li><i class="fas fa-check"></i> 12.5% tejash</li>
-                    <li><i class="fas fa-check"></i> Individual davolash rejasi</li>
-                    <li><i class="fas fa-check"></i> Har seans maslahat</li>
-                    <li><i class="fas fa-check"></i> Holatni kuzatib borish</li>
+                    <li><i class="fas fa-check-circle"></i> Chuqur shifokor ko'rigi</li>
+                    <li><i class="fas fa-check-circle"></i> Cheksiz bankalar soni</li>
+                    <li><i class="fas fa-check-circle"></i> Nuqtaviy massaj sovg'a</li>
+                    <li><i class="fas fa-check-circle"></i> Maxsus o'simlik choyi</li>
                 </ul>
-                <a href="#appt" class="btn btn-white btn-block">Hozir yozilish</a>
+                <a href="#appt" class="btn btn-white btn-block">Yozilish</a>
             </div>
-            <!-- Pro -->
-            <div class="pr-card">
-                <div class="pr-name">5 Seanslik kurs</div>
-                <div class="pr-sub">Surunkali kasalliklar uchun</div>
+            <div class="pr-card" data-tilt data-tilt-max="15">
+                <div class="pr-name">Sog'lomlashtirish</div>
+                <div class="pr-sub">Surunkali og'riqlarga qarshi</div>
                 <div class="pr-price">
-                    <div class="pr-amt">1200000<span class="pr-unit"> so'm</span></div>
+                    <span class="pr-amt">200k</span>
+                    <span class="pr-unit"> / seans</span>
                 </div>
                 <ul class="pr-feats">
-                    <li><i class="fas fa-check"></i> 5 ta hijoma seansi</li>
-                    <li><i class="fas fa-check"></i> 25% tejash</li>
-                    <li><i class="fas fa-check"></i> To'liq tibbiy monitoring</li>
-                    <li><i class="fas fa-check"></i> VIP xizmat</li>
-                    <li><i class="fas fa-check"></i> Uy tashriflari imkoni</li>
+                    <li><i class="fas fa-check-circle"></i> Konsultatsiya</li>
+                    <li><i class="fas fa-check-circle"></i> Maxsus asab nuqtalari</li>
+                    <li><i class="fas fa-check-circle"></i> Sildirma massaj bilan</li>
                 </ul>
-                <a href="#appt" class="btn btn-teal btn-block">Qabul belgilash</a>
+                <a href="#appt" class="btn btn-teal btn-block">Yozilish</a>
             </div>
         </div>
     </div>
@@ -881,97 +864,52 @@
 <section id="appt" class="pad">
     <div class="container">
         <div class="appt-grid">
-            <!-- Left info -->
             <div class="appt-l">
-                <span class="chip chip-white">Online Qabul</span>
-                <h2>Bugun qabulga <br>yoziling</h2>
-                <p>Vaqtingizni tejang — formani to'ldiring, operatorimiz 15 daqiqa ichida siz bilan bog'lanadi.</p>
+                <span class="chip chip-white">Qabulga yozilish</span>
+                <h2>Salomatligingiz uchun hoziroq qadam tashlang</h2>
+                <p>Formani to'ldiring, mutaxassisimiz tez orada siz bilan bog'lanadi va qabul vaqtini tasdiqlaydi.</p>
                 <div class="appt-feats">
                     <div class="apf">
-                        <div class="apf-ico"><i class="fas fa-bolt"></i></div>
-                        <div>
-                            <strong>Tezkor tasdiqlash</strong>
-                            <span>15 daqiqa ichida javob beramiz</span>
-                        </div>
-                    </div>
-                    <div class="apf">
-                        <div class="apf-ico"><i class="fas fa-calendar-alt"></i></div>
-                        <div>
-                            <strong>Qulay jadval</strong>
-                            <span>Dush–Shan, soat 09:00–20:00</span>
-                        </div>
-                    </div>
-                    <div class="apf">
-                        <div class="apf-ico"><i class="fab fa-telegram"></i></div>
-                        <div>
-                            <strong>Telegram orqali</strong>
-                            <span>@shariyhijoma</span>
-                        </div>
-                    </div>
-                    <div class="apf">
                         <div class="apf-ico"><i class="fas fa-phone-alt"></i></div>
-                        <div>
-                            <strong>Telefon</strong>
-                            <span>+998 95 350 11 12</span>
-                        </div>
+                        <div><strong>Tezkor aloqa</strong><span>15 daqiqada bog'lanamiz</span></div>
+                    </div>
+                    <div class="apf">
+                        <div class="apf-ico"><i class="fas fa-user-clock"></i></div>
+                        <div><strong>Navbatlarsiz</strong><span>Siz belgilagan aniq vaqtda</span></div>
                     </div>
                 </div>
             </div>
-            <!-- Right form -->
-            <div class="form-card">
-                <h3><i class="fas fa-calendar-plus" style="color:var(--teal);margin-right:10px"></i>Qabul formasi</h3>
+            <div class="form-card" data-tilt data-tilt-max="5">
+                <h3>Onlayn navbat olish</h3>
                 <div class="ok-msg" id="okMsg">
-                    <i class="fas fa-check-circle"></i>
-                    Muvaffaqiyatli yuborildi! Tez orada siz bilan bog'lanamiz.
+                    <i class="fas fa-check-circle"></i> Arizangiz muvaffaqiyatli qabul qilindi!
                 </div>
-                <!-- Replace YOUR_FORM_ID with your Formspree ID after registering at formspree.io -->
-                <form id="apptForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-                    <div class="f-row">
-                        <div class="f-grp">
-                            <label>Ism Familiya *</label>
-                            <input type="text" name="name" placeholder="Ismoilov Jasur" required>
-                        </div>
-                        <div class="f-grp">
-                            <label>Telefon *</label>
-                            <input type="tel" name="phone" placeholder="+998 90 123 45 67" required>
-                        </div>
-                    </div>
+                <form id="apptForm">
                     <div class="f-grp">
-                        <label>Xizmat turi *</label>
-                        <select name="service" required>
-                            <option value="">— Tanlang —</option>
-                            <option>Klassik Hijoma</option>
-                            <option>Quruq Hijoma</option>
-                            <option>Sildirma Hijoma</option>
-                            <option>O't-o'simlik Hijoma</option>
-                            <option>5 Seanslik kurs</option>
-                            <option>10 Seanslik kurs</option>
-                            <option>Tibbiy Konsultatsiya</option>
-                        </select>
+                        <label>To'liq ismingiz</label>
+                        <input type="text" placeholder="Ism va familiyangizni kiriting" required>
                     </div>
                     <div class="f-row">
                         <div class="f-grp">
-                            <label>Sana *</label>
-                            <input type="date" name="date" id="apptDate" required>
+                            <label>Telefon raqamingiz</label>
+                            <input type="tel" placeholder="+998 (90) 123-4567" required>
                         </div>
                         <div class="f-grp">
-                            <label>Soat *</label>
-                            <select name="time" required>
-                                <option value="">— Tanlang —</option>
-                                <option>09:00</option><option>10:00</option>
-                                <option>11:00</option><option>12:00</option>
-                                <option>14:00</option><option>15:00</option>
-                                <option>16:00</option><option>17:00</option>
-                                <option>18:00</option><option>19:00</option>
+                            <label>Xizmat turi</label>
+                            <select required>
+                                <option value="">Tanlang...</option>
+                                <option>Klassik Hijoma</option>
+                                <option>Quruq va Sildirma</option>
+                                <option>Premium Massaj</option>
                             </select>
                         </div>
                     </div>
                     <div class="f-grp">
-                        <label>Muammo / Savol (ixtiyoriy)</label>
-                        <textarea name="message" placeholder="Sog'lig'ingiz haqida qisqacha ma'lumot..."></textarea>
+                        <label>Qo'shimcha izoh (ixtiyoriy)</label>
+                        <textarea placeholder="Sizni nima bezovta qilayotgani haqida yozishingiz mumkin..."></textarea>
                     </div>
-                    <button type="submit" class="btn btn-red btn-block">
-                        <i class="fas fa-paper-plane"></i> Yuborish
+                    <button type="submit" class="btn btn-red btn-block" style="margin-top:10px">
+                        <i class="fas fa-paper-plane"></i> So'rov yuborish
                     </button>
                 </form>
             </div>
@@ -980,36 +918,36 @@
 </section>
 
 <!-- ==================== TESTIMONIALS ==================== -->
-<section id="testimonials" class="pad" style="background:#fff">
+<section id="testimonials" class="pad">
     <div class="container">
         <div class="s-head">
-            <span class="chip">Mijozlar fikri</span>
-            <h2>Ular bizni tanladi va mamnun</h2>
-            <p>Har oy 100+ mijoz HijomaProzomin markaziga murojaat qiladi</p>
+            <span class="chip">Fikrlar</span>
+            <h2>Mijozlarimiz biz haqimizda</h2>
+            <p>Biz uchun eng katta mukofot — bu sizning sog'ayganingiz va samimiy minnatdorchiligingizdir.</p>
         </div>
         <div class="tst-grid">
             <div class="tst-card">
                 <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p class="tst-txt">«3 yildan beri bel og'rig'imdan aziyat chekardim. 5 seans hijomadan so'ng og'riqlarim deyarli yo'qoldi. Mutaxassislar juda professional va mehribon.»</p>
+                <p class="tst-txt">"Ko'p yillardan beri bel og'rig'idan azob chekardim. Shu markazda 3 seans hijoma olganimdan so'ng og'riqlar mutloq yo'qoldi. Tavsiya qilaman!"</p>
                 <div class="tst-author">
-                    <div class="av">MN</div>
-                    <div class="tst-nm"><strong>Muazzam Nazarova</strong><span>Zomin, 2025</span></div>
+                    <div class="av">A</div>
+                    <div class="tst-nm"><strong>Asrorbek K.</strong><span>Zomin tumani</span></div>
                 </div>
             </div>
             <div class="tst-card">
                 <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p class="tst-txt">«Bosim muammom bor edi. Hijoma kursi o'tgach bosimim normallashdi. Juda katta rahmat HijomaProzomin jamoasiga! Albatta davom etaman.»</p>
+                <p class="tst-txt">"Menga eng yoqqan narsa — sterillik bo'ldi. Hamma narsa yangi, bir martalik ekan. Shifokorlar juda muloyim va o'z ishining ustalari."</p>
                 <div class="tst-author">
-                    <div class="av" style="background:var(--maroon)">JR</div>
-                    <div class="tst-nm"><strong>Jasur Rahimov</strong><span>Samarqand, 2025</span></div>
+                    <div class="av">O</div>
+                    <div class="tst-nm"><strong>Olimjon T.</strong><span>Jizzax shahri</span></div>
                 </div>
             </div>
             <div class="tst-card">
                 <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p class="tst-txt">«Immunitetim past edi, tez-tez kasal bo'lardim. Seanslardan so'ng energiyam oshdi. Markazning yondashuvi, sterilligi va xizmati beshta yulduzga loyiq!»</p>
+                <p class="tst-txt">"Doimiy bosh og'rig'i va charchoq bor edi. Muolajadan keyin o'zimni juda yengil his qilyapman, uyqum ham joyiga tushdi. Rahmat sizlarga!"</p>
                 <div class="tst-author">
-                    <div class="av" style="background:#F4A261">ZH</div>
-                    <div class="tst-nm"><strong>Zulfiya Holiqova</strong><span>Zomin, 2026</span></div>
+                    <div class="av">M</div>
+                    <div class="tst-nm"><strong>Madinabonu Sh.</strong><span>Zomin</span></div>
                 </div>
             </div>
         </div>
@@ -1021,42 +959,28 @@
     <div class="container">
         <div class="ct-grid">
             <div class="ct-info">
-                <span class="chip">Aloqa</span>
-                <h2>Biz bilan bog'laning</h2>
-                <p>Savollaringiz bormi? Quyidagi aloqa vositalari orqali murojaat qiling.</p>
+                <span class="chip chip-red">Aloqa</span>
+                <h2>Sizni markazimizda kutamiz</h2>
+                <p>Savollaringiz bormi? Bizga qo'ng'iroq qiling yoki manzilimizga tashrif buyuring.</p>
                 <div class="ct-items">
                     <div class="ct-item">
-                        <div class="ct-ico"><i class="fas fa-phone-alt"></i></div>
-                        <div><strong>Telefon</strong><span>+998953501112</span></div>
-                    </div>
-                    <div class="ct-item">
-                        <div class="ct-ico"><i class="fab fa-telegram"></i></div>
-                        <div><strong>Telegram</strong><span>@hijomaprozomin</span></div>
-                    </div>
-                    <div class="ct-item">
-                        <div class="ct-ico"><i class="fab fa-instagram"></i></div>
-                         <div><strong>Instagram</strong><span>@HijamaPro.Zomin</span></div>
-                    <div class="ct-item">
                         <div class="ct-ico"><i class="fas fa-map-marker-alt"></i></div>
-                         <div><strong style="color: var(--text);">Manzil</strong><span style="color: var(--text-lt);">Jizzax viloyati, Zomin tumani</span></div>
+                        <div><strong>Manzilimiz</strong><span>Jizzax viloyati, Zomin tumani</span></div>
                     </div>
                     <div class="ct-item">
-                        <div class="ct-ico"><i class="fas fa-clock"></i></div>
-                        <div><strong>Ish vaqti</strong><span>Dushanba – Shanba: 09:00 – 20:00</span></div>
+                        <div class="ct-ico"><i class="fas fa-phone-alt"></i></div>
+                        <div><strong>Telefon raqam</strong><span>+998 (95) 350-11-12</span></div>
+                    </div>
+                    <div class="ct-item">
+                        <div class="ct-ico"><i class="fab fa-telegram-plane"></i></div>
+                        <div><strong>Telegram kanal</strong><span>@shariyhijoma</span></div>
                     </div>
                 </div>
             </div>
-            <!-- Google Maps Embed -->
-            <div>
-                 <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2994.5!2d68. something!3d40.something!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z0J_RgNC-0YHQutC-0Log0JrQsNC70LjQutCw!5e0!3m2!1suz!2suz!4v1712345678901" 
-                    width="100%" 
-                    height="300" 
-                    style="border:0; border-radius:18px;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+            <div class="map-ph" data-tilt data-tilt-max="8">
+                <i class="fas fa-map-marked-alt"></i>
+                <p>Xarita yaqin orada yuklanadi</p>
+                <small>Hozirda integratsiya jarayoni ketmoqda</small>
             </div>
         </div>
     </div>
@@ -1067,161 +991,115 @@
     <div class="container">
         <div class="ft-grid">
             <div class="ft-brand">
-                <div class="logo" style="margin-bottom:0">
-                    <div class="logo-ring" style="border-color:var(--teal-soft);background:rgba(42,158,142,.15)">
-                        <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-                            <rect x="8" y="6" width="12" height="3" rx="1.5" fill="#2A9E8E"/>
-                            <path d="M9 9 L8.5 19 Q8.5 21 11 21 H17 Q19.5 21 19.5 19 L19 9Z" fill="#2A9E8E" fill-opacity=".4" stroke="#2A9E8E" stroke-width="1.2"/>
-                            <path d="M14 11 C14 11 11.5 14.2 11.5 16 C11.5 17.38 12.62 18.5 14 18.5 C15.38 18.5 16.5 17.38 16.5 16 C16.5 14.2 14 11 14 11Z" fill="#8B2035"/>
+                <div class="logo">
+                    <div class="logo-ring" style="border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.05)">
+                        <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
+                            <circle cx="14" cy="14" r="12" stroke="#fff" stroke-width="1.5" fill="none"/>
+                            <path d="M14 11 C14 11 11.5 14.2 11.5 16 C11.5 17.38 12.62 18.5 14 18.5 C15.38 18.5 16.5 17.38 16.5 16 C16.5 14.2 14 11 14 11Z" fill="#FFD166"/>
                         </svg>
                     </div>
                     <div>
                         <div class="logo-name">hijomaprozomin</div>
-                        <div class="logo-sub" style="color:rgba(255,255,255,.45)">Hijoma Markazi</div>
+                        <div class="logo-sub">Hijoma Markazi</div>
                     </div>
                 </div>
-               <p>Jizzaxdagi eng ishonchli hijoma markazi. 2019-yildan beri sog'ligingiz uchun xizmat qilamiz.</p>
-                 <div class="socials">
-                    <a href="https://t.me/hijomaprozomin" class="soc" target="_blank"><i class="fab fa-telegram"></i></a>
-                    <a href="https://www.instagram.com/HijamaPro.Zomin" class="soc" target="_blank"><i class="fab fa-instagram"></i></a>
+                <p>Zomindagi eng zamonaviy ва xavfsiz hijoma markazi. Salomatligingiz — bizning oliy maqsadimiz.</p>
+                <div class="socials">
+                    <a href="https://t.me/shariyhijoma" class="soc"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="#" class="soc"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="soc"><i class="fab fa-youtube"></i></a>
                 </div>
+            </div>
+            <div class="ft-col">
+                <h5>Sahifalar</h5>
+                <ul>
+                    <li><a href="#services">Xizmatlar</a></li>
+                    <li><a href="#about">Biz haqimizda</a></li>
+                    <li><a href="#pricing">Narxlar</a></li>
+                </ul>
             </div>
             <div class="ft-col">
                 <h5>Xizmatlar</h5>
                 <ul>
                     <li><a href="#services">Klassik Hijoma</a></li>
                     <li><a href="#services">Quruq Hijoma</a></li>
-                    <li><a href="#services">Sildirma Hijoma</a></li>
-                    <li><a href="#services">Kurs Davolash</a></li>
-                    <li><a href="#services">Konsultatsiya</a></li>
+                    <li><a href="#services">Sildirma muolajasi</a></li>
                 </ul>
             </div>
             <div class="ft-col">
-                <h5>Sahifalar</h5>
-                <ul>
-                    <li><a href="#about">Biz haqimizda</a></li>
-                    <li><a href="#process">Jarayon</a></li>
-                    <li><a href="#pricing">Narxlar</a></li>
-                    <li><a href="#testimonials">Fikrlar</a></li>
-                    <li><a href="#contact">Aloqa</a></li>
-                </ul>
-            </div>
-            <div class="ft-col">
-                <h5>Aloqa</h5>
-                <ul>
-                    <li><a href="tel:+998 95 350 11 12"><i class="fas fa-phone" style="color:var(--teal-soft);margin-right:8px"></i>+998953501112</a></li>
-                    <li><a <li><a href="https://t.me/hijomaprozomin"><i class="fab fa-telegram" style="color:var(--teal-soft);margin-right:8px"></i>@hijomaprozomin</a></li>
-                    <li><a href="https://www.instagram.com/HijamaPro.Zomin" target="_blank"><i class="fab fa-instagram" style="color:var(--teal-soft);margin-right:8px"></i>@HijamaPro.Zomin</a></li>
-                    <li>
-   <li><a href="https://maps.app.goo.gl/sCR1Za62twmwVftm7?g_st=ac" target="_blank"><i class="fas fa-map-marker-alt" style="color:var(--teal-soft);margin-right:8px"></i>Manzil</a></li>
-                    <li><span style="color:var(--text-md);margin-right:8px"></span><span style="color:var(--text-md)">Biz shuyerdamiz</span></li>
-                    <li><a href="#"><i class="fas fa-clock" style="color:var(--teal-soft);margin-right:8px"></i>09:00 – 20:00</a></li>
+                <h5>Ish vaqti</h5>
+                <ul style="color:rgba(255,255,255,.55);font-size:.88rem;gap:8px">
+                    <li>Har kuni: 08:00 - 20:00</li>
+                    <li>Dam olish kunlarisiz</li>
                 </ul>
             </div>
         </div>
-    </div>
-    <div class="ft-btm">
-        <div class="container">
-            © 2026 <span>HijomaProzomin</span>. Barcha huquqlar himoyalangan.
+        <div class="ft-btm">
+            <p>&copy; 2026 HijomaProzomin. Barcha huquqlar himoyalangan. <span>Hikmat Ummatqulov</span> tomonidan tayyorlandi.</p>
         </div>
     </div>
 </footer>
 
 <button id="totop"><i class="fas fa-arrow-up"></i></button>
 
+<!-- ============================================================
+     СКРИПТЫ ДЛЯ 3D И АНИМАЦИЙ
+     ============================================================ -->
+<!-- Подключаем официальную и безопасную 3D библиотеку Vanilla-Tilt -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
 <script>
-/* ---- Header on scroll ---- */
-const hdr = document.getElementById('hdr');
-const totop = document.getElementById('totop');
-window.addEventListener('scroll', () => {
-    hdr.classList.toggle('solid', scrollY > 60);
-    totop.classList.toggle('on', scrollY > 400);
-});
-totop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
-
-/* ---- Mobile menu ---- */
-const hamBtn = document.getElementById('hamBtn');
-const mMenu  = document.getElementById('mMenu');
-const mClose = document.getElementById('mClose');
-hamBtn.addEventListener('click', () => mMenu.classList.add('open'));
-mClose.addEventListener('click', () => mMenu.classList.remove('open'));
-mMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mMenu.classList.remove('open')));
-
-/* ---- Smooth scroll ---- */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-        const t = document.querySelector(a.getAttribute('href'));
-        if (t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'}); }
+    // Инициализируем 3D Tilt на элементах
+    VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+        max: 15,
+        speed: 300,
+        glare: true,
+        "max-glare": 0.15,
     });
-});
 
-/* ---- Count-up ---- */
-const cnums = document.querySelectorAll('.num[data-to]');
-const cobs  = new IntersectionObserver(entries => {
-    entries.forEach(en => {
-        if (!en.isIntersecting) return;
-        const el  = en.target;
-        const to  = parseInt(el.dataset.to);
-        const sfx = el.dataset.sfx || '+';
-        const dur = 1800;
-        const step= to / (dur / 16);
-        let cur = 0;
-        const t = setInterval(() => {
-            cur += step;
-            if (cur >= to) { cur = to; clearInterval(t); }
-            el.textContent = Math.floor(cur).toLocaleString() + sfx;
-        }, 16);
-        cobs.unobserve(el);
+    // Шапка (Header) при скролле
+    const hdr = document.getElementById('hdr');
+    window.addEventListener('scroll', () => {
+        if(window.scrollY > 40) hdr.classList.add('solid');
+        else hdr.classList.remove('solid');
     });
-}, {threshold:.5});
-cnums.forEach(n => cobs.observe(n));
 
-/* ---- Scroll reveal ---- */
-const robs = new IntersectionObserver(entries => {
-    entries.forEach(en => {
-        if (en.isIntersecting) {
-            en.target.style.opacity = '1';
-            en.target.style.transform = 'translateY(0)';
-        }
-    });
-}, {threshold:.1});
-document.querySelectorAll('.srv-card,.tst-card,.pr-card,.proc-step,.ab-item,.ct-item').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(28px)';
-    el.style.transition = 'opacity .55s ease, transform .55s ease';
-    robs.observe(el);
-});
-
-/* ---- Date min ---- */
-const di = document.getElementById('apptDate');
-if (di) di.min = new Date().toISOString().split('T')[0];
-
-/* ---- Form submit (Formspree) ---- */
-const apptForm = document.getElementById('apptForm');
-apptForm.addEventListener('submit', async e => {
-    e.preventDefault();
-    const btn = apptForm.querySelector('button[type=submit]');
-    const orig = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Yuborilmoqda...';
-    btn.disabled = true;
-    try {
-        const res = await fetch(apptForm.action, {
-            method: 'POST',
-            body: new FormData(apptForm),
-            headers: { Accept: 'application/json' }
-        });
-        if (res.ok) {
-            document.getElementById('okMsg').classList.add('show');
-            apptForm.reset();
-        } else {
-            alert('Xatolik yuz berdi. Iltimos telefon orqali bog\'laning: +998953501112');
-        }
-    } catch {
-        alert('Internet aloqasini tekshiring yoki telefon orqali bog\'laning.');
+    // Мобильное меню
+    const hBtn = document.getElementById('hamBtn'), mMenu = document.getElementById('mMenu'), mCls = document.getElementById('mClose');
+    if(hBtn && mMenu && mCls){
+        hBtn.addEventListener('click',()=>mMenu.classList.add('open'));
+        mCls.addEventListener('click',()=>mMenu.classList.remove('open'));
+        mMenu.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>mMenu.classList.remove('open')));
     }
-    btn.innerHTML = orig;
-    btn.disabled = false;
-});
+
+    // Кнопка наверх
+    const toTop = document.getElementById('totop');
+    window.addEventListener('scroll', () => {
+        if(window.scrollY > 400) toTop.classList.add('on');
+        else toTop.classList.remove('on');
+    });
+    toTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+
+    // Счетчик цифр на главном экране (Анимация статистики)
+    const nums = document.querySelectorAll('.num');
+    nums.forEach(num => {
+        const to = parseInt(num.getAttribute('data-to')), duration = 2000, step = to / (duration / 16);
+        let current = 0;
+        const t = setInterval(() => {
+            current += step;
+            if(current >= to){ num.textContent = to + '+'; clearInterval(t); }
+            else { num.textContent = Math.floor(current) + '+'; }
+        }, 16);
+    });
+
+    // Отправка формы
+    document.getElementById('apptForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const ok = document.getElementById('okMsg');
+        ok.classList.add('show');
+        this.reset();
+        setTimeout(() => ok.classList.remove('show'), 5000);
+    });
 </script>
 </body>
 </html>
